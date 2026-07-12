@@ -23,10 +23,10 @@
 - 暂无
 
 ### Concept
-- 暂无
+- [[baby-cry-locate-itch]] —— 经验性排查技巧：排除吃喝拉撒后全身挠一遍，以哭闹停止定位婴儿痒点
 
 ### Summary
 - 暂无
 
 ### Source-note
-- 暂无
+- [[nuan-nuan-baby-cry-scratch-video]] —— 抖音「暖暖小星球」带娃妙招视频笔记：宝宝哭闹全身挠一遍定位痒点
