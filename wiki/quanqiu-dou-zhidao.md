@@ -7,6 +7,7 @@ sources:
   - raw/micrometer-usage-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 全球都知道
@@ -30,8 +31,10 @@ updated: 2026-07-12
 
 ## 时间线
 
-- 2026-06-18 — 发布千分尺使用方法视频（系列第2集）
-- 2026-07-12 — 本 wiki ingest 该视频
+- 2026-06-18 | 发布千分尺使用方法视频（系列第2集）
+  （来源：raw/micrometer-usage-douyin-2026-06.md）
+- 2026-07-12 | 本 wiki ingest 该视频
+  （来源：raw/micrometer-usage-douyin-2026-06.md）
 
 ## 关联实体
 

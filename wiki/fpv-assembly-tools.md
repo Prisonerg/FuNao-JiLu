@@ -7,6 +7,7 @@ sources:
   - raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 穿越机装机必备工具与耗材
@@ -81,3 +82,8 @@ updated: 2026-07-12
 - [[fpv-drone]] —— 穿越机/FPV 概念页
 - [[fpv-assembly-tools-infographic]] —— 本概念所依据的抖音图文笔记（原始源）
 - [[secret-fpv-pilot]] —— 图文作者
+
+## 时间线
+
+- 2026-07-12 10:37 | 首次 ingest 自 raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md,建立装机工具清单(耗材13项+工具10项+辅助6项)
+  （来源：raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md）

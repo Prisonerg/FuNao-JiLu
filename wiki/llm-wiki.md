@@ -8,6 +8,7 @@ sources:
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # LLM Wiki
@@ -55,7 +56,7 @@ gist 列举了 LLM Wiki 适用的多种「随时间累积知识并希望被组�
 
 LLM Wiki 模式在中文社区引发了显见的传播与二次创作。2026-06-23，抖音作者「苏大讲AI」发布短视频《完犊子了！卡帕西刚引爆的"LLM Wiki"学习潮！》，把该模式包装为「用 Obsidian + Claude 建立第二大脑」的本土化叙事，获得 1.1 万赞、1.0 万收藏的互动热度（来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息、§ 章节要点-总述）。该视频把 LLM Wiki 与 [[second-brain|第二大脑]] 概念直接绑定，构成中文社区对该模式的典型框架化解读，详见 [[suda-llm-wiki-video|视频笔记页]]。
 
-需注意：视频作者把 [[andrej-karpathy|Karpathy]] 称为「OpenAI 创始人」，属口语化简化（Karpathy 实为 OpenAI 联合创始成员之一）；且视频章节要点为抖音 AI 自动生成、非逐字稿，存在两层 AI 中介化（详见 [[suda-llm-wiki-video]] § 来源元信息）。
+需注意：视频作者把 [[andrej-karpathy|Karpathy]] 称为「OpenAI 创始人」，属口语化简化（Karpathy 实为 OpenAI 联合创始成员之一）；且视频章节要点为抖音 AI 自动生成、非逐字稿，存在两层 AI 中介化（详见 [[suda-llm-wiki-video]] § 作品元信息）。
 
 ## 局限
 
@@ -67,3 +68,10 @@ LLM Wiki 模式在中文社区引发了显见的传播与二次创作。2026-06-
 - **规模上限**：gist 自承基于 index.md 的方案在中等规模（约 100 个源、数百个页面）内效果良好，更大规模需引入专门搜索引擎（如 qmd 的 BM25 / 向量混合检索），并非无限可扩展（来源：raw/karpathy-llm-wiki-gist.md § Indexing and logging、§ Optional: CLI tools）。
 - **强依赖 LLM 会话的纪律性**：wiki 的质量取决于 LLM 是否严格遵循 schema；不同模型 / 会话对 schema 的执行一致性问题，需靠 lint 工作流兜底。
 - **非实时**：wiki 反映的是最近一次 ingest 的状态，不自动追踪外部世界的变化，需人工触发新源 ingest。
+
+## 时间线
+
+- 2026-07-12 | 首次 ingest 自 raw/karpathy-llm-wiki-gist.md,建立定义、核心思想、应用场景、局限
+  （来源：raw/karpathy-llm-wiki-gist.md）
+- 2026-07-12 09:04 | 补充中文社区反响段,sources 增加抖音源,加 second-brain 对比行
+  （来源：raw/suda-llm-wiki-douyin-2026-06.md）

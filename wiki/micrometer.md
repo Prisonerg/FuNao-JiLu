@@ -7,6 +7,7 @@ sources:
   - raw/micrometer-usage-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 千分尺
@@ -62,3 +63,8 @@ updated: 2026-07-12
 
 - [[micrometer-usage-douyin-2026-06]] —— 本概念所依据的抖音视频笔记（原始源）
 - [[quanqiu-dou-zhidao]] —— 视频作者
+
+## 时间线
+
+- 2026-07-12 12:51 | 首次 ingest 自 raw/micrometer-usage-douyin-2026-06.md,建立千分尺概念页(结构/读数/对比)
+  （来源：raw/micrometer-usage-douyin-2026-06.md）

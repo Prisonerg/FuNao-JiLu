@@ -1,17 +1,18 @@
 ---
 title: "秘密无人机飞手：穿越机装机必备工具（抖音图文笔记）"
-type: source-note
+type: media
 domain: hobby
 tags: [fpv, drone, douyin, assembly, tools, infographic, ocr, 穿越机]
 sources:
   - raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 秘密无人机飞手：穿越机装机必备工具
 
-## 来源元信息
+## 作品元信息
 
 - **文件**：raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md
 - **类型**：抖音图文作品（单张信息图，非视频）
@@ -56,3 +57,8 @@ updated: 2026-07-12
 - [[fpv-assembly-tools]] —— 本图文所科普的装机工具概念页
 - [[secret-fpv-pilot]] —— 本图文作者
 - [[fpv-drone]] —— 穿越机概念页
+
+## 时间线
+
+- 2026-07-12 10:37 | 首次 ingest 自 raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md,经 OCR 识别装机工具清单
+  （来源：raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md）

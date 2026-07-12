@@ -5,6 +5,7 @@ domain: personal
 tags: [parenting, baby-cry, baby-itch, soothing, ugc-tip]
 sources:
   - raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md
+reliability: low
 created: 2026-07-12
 updated: 2026-07-12
 ---
@@ -43,3 +44,8 @@ updated: 2026-07-12
 ## 关联页
 
 - [[nuan-nuan-baby-cry-scratch-video]] —— 本概念所依据的抖音视频笔记（原始源）
+
+## 时间线
+
+- 2026-07-12 10:07 | 首次 ingest 自 raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md,建立宝宝哭闹挠痒定位法概念页
+  （来源：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md）
