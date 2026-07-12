@@ -35,13 +35,16 @@
 
 ### Entity
 - [[secret-fpv-pilot]] —— 抖音穿越机/FPV 领域内容创作者，发布装机工具图文
+- [[quanqiu-dou-zhidao]] —— 抖音科普动画创作者，作品覆盖精密量具（千分尺、游标卡尺）使用方法
 
 ### Concept
 - [[fpv-drone]] —— 穿越机/FPV 无人机概念：第一人称视角飞行、自组装文化
 - [[fpv-assembly-tools]] —— 穿越机新手装机必备工具与耗材清单（耗材 13 项 + 工具 10 项 + 辅助 6 项）
+- [[micrometer]] —— 千分尺：高精度螺旋测微量具，分辨率 0.01 mm，含结构与读数方法
 
 ### Summary
 - 暂无
 
 ### Source-note
 - [[fpv-assembly-tools-infographic]] —— 抖音「秘密无人机飞手」装机工具图文笔记：OCR 识别的单张信息图
+- [[micrometer-usage-douyin-2026-06]] —— 抖音「全球都知道」千分尺使用方法视频笔记：原理动画讲解结构与读数
