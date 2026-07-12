@@ -1,0 +1,43 @@
+# Tasks
+
+- [x] Task 1: 创建目录结构与 .gitignore
+  - [ ] SubTask 1.1: 创建 `raw/` 与 `wiki/` 两个空目录（通过在其中放入文件即可建立）
+  - [ ] SubTask 1.2: 写 `.gitignore`，忽略 `.obsidian/`、`.DS_Store`、`*.swp`、`.trae/`（保留 spec 但不污染主仓库视图，按需）
+- [x] Task 2: 撰写 schema 文件 AGENTS.md（中文）
+  - [ ] SubTask 2.1: 写"项目概述 + 三层架构 + 人机分工"
+  - [ ] SubTask 2.2: 写"目录结构与不可变规则"（raw 只读、wiki LLM 拥有）
+  - [ ] SubTask 2.3: 写"frontmatter 模板"（必填字段 title/type/domain/tags/sources/created/updated）
+  - [ ] SubTask 2.4: 写"四种 type 的正文模板"（entity / concept / summary / source-note）
+  - [ ] SubTask 2.5: 写"命名约定 + [[wikilink]] 交叉引用风格 + 引文格式"
+  - [ ] SubTask 2.6: 写"矛盾处理规则"（`> [!warning]` callout，禁静默覆盖）
+  - [ ] SubTask 2.7: 写"Ingest / Query / Lint 三大操作工作流"（分步骤）
+  - [ ] SubTask 2.8: 写"index.md 与 log.md 维护规则"
+  - [ ] SubTask 2.9: 写"领域适配"（ai 与 personal 各自偏好与隐私提示）
+- [x] Task 3: 同步生成 CLAUDE.md
+  - [ ] SubTask 3.1: 把 AGENTS.md 内容逐字复制到 CLAUDE.md（仅文件名引用差异需调整）
+  - [ ] SubTask 3.2: 校验两文件内容一致
+- [x] Task 4: 预填示例原始源
+  - [ ] SubTask 4.1: 写 `raw/karpathy-llm-wiki-gist.md`，内容为 Karpathy 原始 gist 全文（从官方 raw URL 获取）
+- [x] Task 5: 生成示例 wiki 页
+  - [ ] SubTask 5.1: 写 `wiki/llm-wiki.md`（concept 页，domain: ai）
+  - [ ] SubTask 5.2: 写 `wiki/andrej-karpathy.md`（entity 页，domain: ai）
+  - [ ] SubTask 5.3: 写 `wiki/rag-vs-llm-wiki.md`（summary 页，含对比表）
+  - [ ] SubTask 5.4: 确保三页之间有 `[[wikilink]]` 互链，且每页 frontmatter 含 sources 指回 raw/
+- [x] Task 6: 填充 index.md 与 log.md
+  - [ ] SubTask 6.1: 写 `wiki/index.md`，按 domain × type 分组列出 3 个示例页
+  - [ ] SubTask 6.2: 写 `wiki/log.md`，追加一条"ingest raw/karpathy-llm-wiki-gist.md"记录，触达文件列表完整
+- [x] Task 7: 更新 README.md
+  - [ ] SubTask 7.1: 保留 `# FuNao-JiLu` 标题，替换正文为 LLM Wiki 用法说明
+  - [ ] SubTask 7.2: 包含三层架构示意、三大操作、Obsidian 打开方式
+- [x] Task 8: 自检验证
+  - [ ] SubTask 8.1: 检查所有 `[[wikilink]]` 指向的文件存在（无悬空链接）
+  - [ ] SubTask 8.2: 检查 AGENTS.md 与 CLAUDE.md 内容一致
+  - [ ] SubTask 8.3: 检查 wiki/ 下无子目录、所有页 frontmatter 字段齐全
+  - [ ] SubTask 8.4: 检查 .gitignore 含 .obsidian/
+
+# Task Dependencies
+- Task 3 依赖 Task 2（先有 AGENTS.md 才能同步 CLAUDE.md）
+- Task 5 依赖 Task 4（wiki 页要引用 raw 源）
+- Task 6 依赖 Task 5（index/log 要列出已生成的页）
+- Task 8 依赖 Task 1–7 全部完成
+- Task 1、Task 2、Task 4 可并行起步

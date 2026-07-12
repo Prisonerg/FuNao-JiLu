@@ -1,0 +1,26 @@
+# Checklist
+
+- [x] 三层目录架构：`raw/`、`wiki/`、`AGENTS.md`、`CLAUDE.md`、`README.md`、`.gitignore` 均存在于仓库根目录
+- [x] `wiki/` 下为扁平结构（无子目录），所有页面为 `.md` 文件
+- [x] schema 文件（AGENTS.md）声明 `raw/` 不可变，LLM 只读不写
+- [x] `AGENTS.md` 与 `CLAUDE.md` 内容逐字一致（双 Agent 兼容）
+- [x] schema 包含 12 个规定章节（概述/目录规则/frontmatter/正文模板/命名/链接/引文/矛盾/三大操作/index 规则/log 规则/领域适配）
+- [x] frontmatter 模板列出全部必填字段：`title`、`type`、`domain`、`tags`、`sources`、`created`、`updated`
+- [x] schema 定义了四种 `type` 的正文模板（entity / concept / summary / source-note）
+- [x] schema 规定交叉引用使用 `[[wikilink]]`，禁用纯相对路径链接
+- [x] schema 规定矛盾处理用 `> [!warning]` callout 标注，禁止静默覆盖
+- [x] schema 写明 Ingest / Query / Lint 三大操作的分步骤工作流
+- [x] schema 写明 index.md（按 domain × type 分组）与 log.md（追加式，含时间戳/操作类型/触达文件）维护规则
+- [x] `raw/karpathy-llm-wiki-gist.md` 存在，内容为 Karpathy 原始 gist 全文
+- [x] `wiki/llm-wiki.md`（concept, domain: ai）存在且 frontmatter 字段齐全
+- [x] `wiki/andrej-karpathy.md`（entity, domain: ai）存在且 frontmatter 字段齐全
+- [x] `wiki/rag-vs-llm-wiki.md`（summary, domain: ai）存在且含对比表
+- [x] 三个示例 wiki 页之间通过 `[[wikilink]]` 互链，无悬空链接
+- [x] 每个示例 wiki 页的 frontmatter `sources` 字段指回 `raw/karpathy-llm-wiki-gist.md`
+- [x] `wiki/index.md` 按 domain × type 分组列出全部 3 个示例页
+- [x] `wiki/log.md` 包含一条"ingest raw/karpathy-llm-wiki-gist.md"记录，触达文件列表完整
+- [x] `.gitignore` 包含 `.obsidian/`、`.DS_Store`、`*.swp`
+- [x] `README.md` 保留 `# FuNao-JiLu` 标题，正文为中文 LLM Wiki 用法说明
+- [x] `README.md` 包含三层架构示意、三大操作说明、Obsidian 打开方式
+- [x] 仓库可作为 Obsidian vault 直接打开（图谱视图能展示示例页链接关系）
+- [x] 无应用程序代码（无 Python/Node 脚本、无构建步骤、无向量数据库）
