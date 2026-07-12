@@ -15,6 +15,9 @@
 ### 主题：精密量具 / 测量
 - [[micrometer]]、[[quanqiu-dou-zhidao]]、[[micrometer-usage-douyin-2026-06]]
 
+### 主题：建筑材料 / 工程材料
+- [[uhpc]]、[[steel-fiber-concrete]]、[[concrete-patch-repair]]、[[compressive-strength]]、[[zhao-laoshi-jianzhu-keji-yuan]]、[[uhpc-steel-fiber-repair-douyin-2026-07]]
+
 ### 主题：育儿 / 婴儿护理
 - [[baby-cry-locate-itch]]、[[nuan-nuan-baby-cry-scratch-video]]
 
@@ -66,11 +69,16 @@
 ### Entity
 - [[secret-fpv-pilot]] —— 抖音穿越机/FPV 领域内容创作者，发布装机工具图文
 - [[quanqiu-dou-zhidao]] —— 抖音科普动画创作者，作品覆盖精密量具（千分尺、游标卡尺）使用方法
+- [[zhao-laoshi-jianzhu-keji-yuan]] —— 抖音建筑科技领域创作者，分享 UHPC/混凝土修补等工程材料配比
 
 ### Concept
 - [[fpv-drone]] —— 穿越机/FPV 无人机概念：第一人称视角飞行、自组装文化
 - [[fpv-assembly-tools]] —— 穿越机新手装机必备工具与耗材清单（耗材 13 项 + 工具 10 项 + 辅助 6 项）
 - [[micrometer]] —— 千分尺：高精度螺旋测微量具，分辨率 0.01 mm，含结构与读数方法
+- [[uhpc]] —— 超高性能混凝土：抗压强度 ≥100 MPa 的水泥基复合材料，含钢纤维增强
+- [[steel-fiber-concrete]] —— 钢纤维混凝土：掺短切钢纤维的增韧水泥基复合材料，UHPC 的关键增强组分
+- [[concrete-patch-repair]] —— 混凝土修补：对破损混凝土填充补强的工艺，含浅层/深层分层策略
+- [[compressive-strength]] —— 抗压强度（混凝土）：混凝土核心力学性能指标，强度等级划分依据
 
 ### Summary
 - 暂无
@@ -84,3 +92,4 @@
 ### Media
 - [[fpv-assembly-tools-infographic]] —— 抖音「秘密无人机飞手」装机工具图文笔记：OCR 识别的单张信息图
 - [[micrometer-usage-douyin-2026-06]] —— 抖音「全球都知道」千分尺使用方法视频笔记：原理动画讲解结构与读数
+- [[uhpc-steel-fiber-repair-douyin-2026-07]] —— 抖音「赵老师-建筑科技研究院」UHPC 钢纤维修补配比视频笔记：2h 39.2MPa / 1d 43.3MPa / 28d 100MPa
