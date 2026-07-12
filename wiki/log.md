@@ -25,3 +25,9 @@
   (4) **C4 命名不一致**：[index] 一级分组原为「## 个人领域（Personal）」，与 §10 示例「## Personal 领域」不一致。已统一为「## Personal 领域」。
   另：log.md 首条记录（2026-07-12 -- Ingest）缺 HH:MM 且用 `--` 而非 ` - `，不符合 §11 格式——但 §11 规定 log 追加式不删改历史，故保留原样，仅此说明。
   孤岛页检查：0 项（5 个知识页入链均 ≥3）。缺失交叉引用：0 项。被修复页面 updated 字段均已是今日（2026-07-12），无需刷新。可选改进项（O1 新建实体页 / O2 补 tag / O3 措辞微调）未执行，留待后续 ingest。
+
+### 2026-07-12 10:07 - Ingest
+
+- **源文件**：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md（新建；由 Trae wiki 维护者经 WebFetch 抓取抖音视频页文字描述后落盘，用户授权「完整 ingest 进 wiki」。注：raw/ 常规为 LLM 只读不写，本次系用户明确授权的一次性原始源入库）
+- **触达的 wiki 文件**：wiki/nuan-nuan-baby-cry-scratch-video.md（新建 source-note）, wiki/baby-cry-locate-itch.md（新建 concept）, wiki/index.md（Personal 领域登记 1 source-note + 1 concept）, wiki/log.md
+- **说明**：摄入抖音「暖暖小星球」《带娃妙招 宝宝哭闹就全身挠一遍》视频（2026-06-26 12:44 发布，00:18，64.9 万播放 / 22 万收藏）。该源为本次会话用户触发「查询育儿知识」后发现 wiki 育儿内容为空，用户记忆中的「婴儿头痒」知识即源自此视频；用户遂授权完整 ingest。新建 [[baby-cry-locate-itch]] 概念页承接方法本体（排除吃喝拉撒 → 全身挠 → 以哭闹停止定位痒点），[[nuan-nuan-baby-cry-scratch-video]] source-note 记录视频元信息与两层中介化性质（WebFetch 文字描述非逐字稿 + UGC 非医学权威）。来源经用户口述链接提供、WebFetch 抓取，raw 文件性质已在文件头与 source-note 显式标注。矛盾检查：本源为 wiki 首个 personal 领域内容，与既有 AI 领域页面无交叉，无新旧结论冲突，未触发 callout。已知缺口：方法适用边界、婴儿头痒具体诱因（乳痂/湿疹等）本源未覆盖，待后续 ingest 儿科权威源补全，已在两页「局限/延伸问题」中标注。
