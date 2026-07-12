@@ -48,7 +48,7 @@ Trae / Cursor / Codex 等 AI 编程助手读取 AGENTS.md；Claude Code 读取 C
 | --- | --- | --- |
 | `title` | 显示标题 | 字符串，可用中文 |
 | `type` | 页面类型 | `entity` / `concept` / `summary` / `source-note` |
-| `domain` | 所属领域 | `ai` / `personal` |
+| `domain` | 所属领域 | `ai` / `personal` / `hobby` |
 | `tags` | 标签数组 | YAML 数组，小写英文为主，如 `[transformer, attention]` |
 | `sources` | 来源数组 | 指回 `raw/xxx.md`，可多条；格式为 `raw/文件名.md` |
 | `created` | 创建日期 | `YYYY-MM-DD` |
@@ -263,8 +263,8 @@ updated: 2026-07-12
 
 `wiki/index.md` 是 wiki 的主目录，是 Query 操作的入口。
 
-- 按 **domain（`ai` / `personal`）× type（`entity` / `concept` / `summary` / `source-note`）** 分组列出所有知识页。
-- 推荐层级：一级分组用 `## domain`（如 `## AI 领域`、`## Personal 领域`），其下用 `### type`（如 `### Entity`）。
+- 按 **domain（`ai` / `personal` / `hobby`）× type（`entity` / `concept` / `summary` / `source-note`）** 分组列出所有知识页。
+- 推荐层级：一级分组用 `## domain`（如 `## AI 领域`、`## Personal 领域`、`## Hobby 领域`），其下用 `### type`（如 `### Entity`）。
 - 每条用 `[[filename]]` 链接 + 一句话简介，例如：
 
   ```markdown
@@ -299,7 +299,7 @@ updated: 2026-07-12
 
 ## 12. 领域适配
 
-本仓库混合两个 domain，二者偏好与隐私策略不同。
+本仓库混合三个 domain，三者偏好与隐私策略不同。
 
 ### domain: ai（AI 学习）
 
@@ -315,6 +315,14 @@ updated: 2026-07-12
   - `source-note` 可记笔记要点，但避免原文大段复制个人私密内容。
   - **严禁**把 personal 内容泄露到 ai 领域页面（如不要在公开的 AI 概念页里夹带个人经历）。
 - personal 页的 `[[wikilink]]` 应主要指向其它 personal 页或纯客观的 ai 概念页，避免反向污染。
+
+### domain: hobby（爱好 / 手工 / 航模等技术型爱好）
+
+- **偏好页面类型**：`entity`（工具 / 设备 / 品牌 / 创作者）、`concept`（方法 / 技巧 / 术语）、`source-note`（教程 / 视频 / 图文笔记）、`summary`（主题综述）。
+- **可公开**：内容面向分享与讨论，属技能/爱好型知识，可大胆记录、详尽交叉引用。
+- 命名、tags 用该爱好社区通用术语（如 FPV 领域用 `fpv`、`drone`、`穿越机`、`飞控`、`电调`）。
+- 与 `ai` 域的区别：`hobby` 侧重硬件手工 / 实操技能 / 物理设备，`ai` 侧重软件 / 算法 / 模型。两者有交叉时（如无人机飞控算法），以主要属性决定归属，并在页面中交叉引用对方域的页。
+- 与 `personal` 域的区别：`hobby` 是可公开的技术知识，不含个人隐私；个人购买记录、飞行日记等私密内容归 `personal`，并在 `personal` 页中引用 `hobby` 概念页。
 
 ---
 
