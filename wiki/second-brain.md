@@ -40,7 +40,7 @@ reliability: medium
 ## 局限
 
 - **维护成本是传统第二大脑的死穴**：Karpathy 指出「人类放弃 wiki，是因为维护负担增长比价值增长更快」（来源：raw/karpathy-llm-wiki-gist.md § Why this works）。传统第二大脑方法论给出 capture/organize 工作流，但未解决「谁来做维护」——这正是 [[llm-wiki]] 用 LLM 补上的缺口。
-- **概念边界模糊**：「第二大脑」在中文社区被泛化使用，既可指 Tiago Forte 的特定方法论，也可泛指任何 PKM 系统，还可被借指 [[llm-wiki]]。视频 raw/suda-llm-wiki-douyin-2026-06.md 即把三者混用，需结合上下文判断所指。
+- **概念边界模糊**：「第二大脑」在中文社区被泛化使用，既可指 Tiago Forte 的特定方法论，也可泛指任何 PKM 系统，还可被借指 [[llm-wiki]]。视频 [[suda-llm-wiki-video]] 即把三者混用，需结合上下文判断所指。
 - **本页原始源不充分**：本页目前依赖 Karpathy gist（未使用「第二大脑」一词）与一条抖音 AI 摘要视频，对「第二大脑」概念本身的源覆盖不足。待后续 ingest Tiago Forte《Building a Second Brain》或相关中文社区资料后补全。
 
 ## 关联页
