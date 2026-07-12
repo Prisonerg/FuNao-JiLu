@@ -51,5 +51,5 @@ gist 对 RAG 的核心批评是「没有累积」：
 
 ## 参考来源
 
-- raw/karpathy-llm-wiki-gist.md（本综述唯一原始源）
-- 相关 wiki 页：[[llm-wiki]]、[[andrej-karpathy]]
+- raw/karpathy-llm-wiki-gist.md（本综述核心原始源）
+- 相关 wiki 页：[[llm-wiki]]、[[andrej-karpathy]]、[[second-brain]]（第二大脑视角：传统 PKM 的维护成本问题正是 LLM Wiki 用 LLM 补上的缺口）

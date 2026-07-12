@@ -9,12 +9,13 @@
 
 ### Concept
 - [[llm-wiki]] —— Karpathy 提出的持久化知识编译模式，与 RAG 形成对比
+- [[second-brain]] —— 个人知识管理理念，中文社区对 LLM Wiki 的本土化框架表述
 
 ### Summary
 - [[rag-vs-llm-wiki]] —— RAG 与 LLM Wiki 两种知识管理范式的系统对比（含对比表）
 
 ### Source-note
-- 暂无
+- [[suda-llm-wiki-video]] —— 抖音「苏大讲AI」科普视频笔记：2026-06 中文社区对 LLM Wiki 学习潮的反响
 
 ## 个人领域（Personal）
 
