@@ -33,7 +33,7 @@ Andrej Karpathy 是 AI 研究者与 AI 教育者，OpenAI 联合创始成员之�
 
 ## 相关事件
 
-- 2026-04 — 发布 LLM Wiki gist，提出 LLM Wiki 模式（链接到 [[llm-wiki]]；来源：raw/karpathy-llm-wiki-gist.md、.trae/specs/build-llm-wiki/spec.md § Why）。
+- 2026-04 — 发布 LLM Wiki gist，提出 LLM Wiki 模式（链接到 [[llm-wiki]]；来源：raw/karpathy-llm-wiki-gist.md）。
 - 2026-06 — 中文社区出现 LLM Wiki「学习潮」反响：抖音作者「苏大讲AI」发布科普视频，获 1.1 万赞、1.0 万收藏，把 LLM Wiki 包装为「Obsidian + Claude 建第二大脑」（链接到 [[suda-llm-wiki-video]]、[[second-brain]]；来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息）。
 
 ## 时间线

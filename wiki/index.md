@@ -17,7 +17,7 @@
 ### Source-note
 - [[suda-llm-wiki-video]] —— 抖音「苏大讲AI」科普视频笔记：2026-06 中文社区对 LLM Wiki 学习潮的反响
 
-## 个人领域（Personal）
+## Personal 领域
 
 ### Entity
 - 暂无
