@@ -14,7 +14,7 @@ updated: 2026-07-12
 
 ## 定义
 
-LLM Wiki 是一种个人知识管理模式：让 LLM 增量地把原始资料「编译」成一个持久、可复利、互相链接的 Markdown wiki，知识「编译一次、持续保持最新」，从而区别于每次提问都从原始文档重新检索的 RAG（来源：raw/karpathy-llm-wiki-gist.md § The core idea）。该模式由 [[andrej-karpathy|Andrej Karpathy]] 提出，本页唯一原始源即为其发布的 LLM Wiki gist。
+LLM Wiki 是一种个人知识管理模式：让 LLM 增量地把原始资料「编译」成一个持久、可复利、互相链接的 Markdown wiki，知识「编译一次、持续保持最新」，从而区别于每次提问都从原始文档重新检索的 RAG（来源：raw/karpathy-llm-wiki-gist.md § The core idea）。该模式由 [[andrej-karpathy|Andrej Karpathy]] 提出，本页核心原始源为其发布的 LLM Wiki gist，另见 [[suda-llm-wiki-video|中文社区反响源]]。
 
 ## 核心思想
 
