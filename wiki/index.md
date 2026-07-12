@@ -30,3 +30,18 @@
 
 ### Source-note
 - [[nuan-nuan-baby-cry-scratch-video]] —— 抖音「暖暖小星球」带娃妙招视频笔记：宝宝哭闹全身挠一遍定位痒点
+
+## Hobby 领域
+
+### Entity
+- [[secret-fpv-pilot]] —— 抖音穿越机/FPV 领域内容创作者，发布装机工具图文
+
+### Concept
+- [[fpv-drone]] —— 穿越机/FPV 无人机概念：第一人称视角飞行、自组装文化
+- [[fpv-assembly-tools]] —— 穿越机新手装机必备工具与耗材清单（耗材 13 项 + 工具 10 项 + 辅助 6 项）
+
+### Summary
+- 暂无
+
+### Source-note
+- [[fpv-assembly-tools-infographic]] —— 抖音「秘密无人机飞手」装机工具图文笔记：OCR 识别的单张信息图
