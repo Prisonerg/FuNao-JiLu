@@ -5,6 +5,7 @@ domain: ai
 tags: [person, openai, tesla, ai-educator]
 sources:
   - raw/karpathy-llm-wiki-gist.md
+  - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
 ---
@@ -33,6 +34,7 @@ Andrej Karpathy 是 AI 研究者与 AI 教育者，OpenAI 联合创始成员之�
 ## 相关事件
 
 - 2026-04 — 发布 LLM Wiki gist，提出 LLM Wiki 模式（链接到 [[llm-wiki]]；来源：raw/karpathy-llm-wiki-gist.md、.trae/specs/build-llm-wiki/spec.md § Why）。
+- 2026-06 — 中文社区出现 LLM Wiki「学习潮」反响：抖音作者「苏大讲AI」发布科普视频，获 1.1 万赞、1.0 万收藏，把 LLM Wiki 包装为「Obsidian + Claude 建第二大脑」（链接到 [[suda-llm-wiki-video]]、[[second-brain]]；来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息）。
 
 ## 时间线
 
@@ -44,8 +46,11 @@ Andrej Karpathy 是 AI 研究者与 AI 教育者，OpenAI 联合创始成员之�
 | 2023 | 回到 OpenAI（公众已知事实；精确月份待补充） |
 | 2024 | 创立 Eureka Labs，专注 AI 教育（公众已知事实） |
 | 2026-04 | 发布 LLM Wiki gist，提出 LLM Wiki 模式（来源：raw/karpathy-llm-wiki-gist.md） |
+| 2026-06 | 中文社区出现 LLM Wiki「学习潮」反响（抖音「苏大讲AI」科普视频，1.1 万赞；来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息） |
 
 ## 关联实体
 
 - [[llm-wiki]] —— Karpathy 提出的持久化知识编译模式；其 gist 是本 wiki 的首个原始源。
 - [[rag-vs-llm-wiki]] —— 对 LLM Wiki 与 RAG 的系统对比，论点源自 Karpathy 的 gist。
+- [[second-brain]] —— 中文社区对 LLM Wiki 的本土化框架表述；2026-06 抖音科普视频把两者直接绑定。
+- [[suda-llm-wiki-video]] —— 2026-06 抖音科普视频笔记，记录中文社区对 LLM Wiki 的反响。

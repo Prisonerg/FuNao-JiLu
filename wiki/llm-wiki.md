@@ -5,6 +5,7 @@ domain: ai
 tags: [knowledge-management, rag, agent-memory, karpathy]
 sources:
   - raw/karpathy-llm-wiki-gist.md
+  - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
 ---
@@ -37,7 +38,8 @@ LLM Wiki 建立在三层数据结构之上（来源：raw/karpathy-llm-wiki-gist
 | 概念 | 相同 | 不同 |
 | --- | --- | --- |
 | [[rag-vs-llm-wiki]] | 都用 LLM 处理原始文档、都支持基于多文档的综合回答 | RAG 在查询时从原始文档重新检索、知识不累积；LLM Wiki 让 LLM 增量编译持久 wiki，知识编译一次、持续保持最新 |
-| [[andrej-karpathy]] | —— | LLM Wiki 模式的提出者；其 gist 是本页唯一原始源 |
+| [[andrej-karpathy]] | —— | LLM Wiki 模式的提出者；其 gist 是本页核心原始源 |
+| [[second-brain]] | 都追求知识的持久化与复利累积；都用 Obsidian 等工具承载 | 第二大脑是更广义的 PKM 理念，传统上由人手工维护；LLM Wiki 强调 LLM 承担全部维护 grunt work，是第二大脑在 LLM 时代的实现形态（来源：raw/suda-llm-wiki-douyin-2026-06.md § 章节要点-总述） |
 
 ## 应用场景
 
@@ -48,6 +50,12 @@ gist 列举了 LLM Wiki 适用的多种「随时间累积知识并希望被组�
 - **读书（Reading a book）**：逐章归档，构建角色、主题、情节线及其关联的页面，最终得到一本丰富的伴读 wiki（类比社区多年协作构建的 Tolkien Gateway 等粉丝 wiki）。
 - **商业 / 团队（Business/team）**：由 LLM 维护的内部 wiki，输入来自 Slack 线程、会议纪要、项目文档、客户通话，可加入人工审核环节；wiki 之所以能保持最新，是因为 LLM 承担了团队无人愿做的维护工作。
 - **其它**：竞品分析、尽职调查、旅行规划、课程笔记、爱好深挖——任何「随时间累积知识并希望被组织」的场景。
+
+## 中文社区反响（2026-06）
+
+LLM Wiki 模式在中文社区引发了显见的传播与二次创作。2026-06-23，抖音作者「苏大讲AI」发布短视频《完犊子了！卡帕西刚引爆的"LLM Wiki"学习潮！》，把该模式包装为「用 Obsidian + Claude 建立第二大脑」的本土化叙事，获得 1.1 万赞、1.0 万收藏的互动热度（来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息、§ 章节要点-总述）。该视频把 LLM Wiki 与 [[second-brain|第二大脑]] 概念直接绑定，构成中文社区对该模式的典型框架化解读，详见 [[suda-llm-wiki-video|视频笔记页]]。
+
+需注意：视频作者把 [[andrej-karpathy|Karpathy]] 称为「OpenAI 创始人」，属口语化简化（Karpathy 实为 OpenAI 联合创始成员之一）；且视频章节要点为抖音 AI 自动生成、非逐字稿，存在两层 AI 中介化（详见 [[suda-llm-wiki-video]] § 来源元信息）。
 
 ## 局限
 
