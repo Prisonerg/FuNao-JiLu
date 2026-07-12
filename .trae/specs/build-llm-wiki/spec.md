@@ -1,119 +1,138 @@
-# 搭建 LLM Wiki（Karpathy 原版 gist 模式）Spec
+# GBrain-core Wiki 重构 Spec
 
 ## Why
-Andrej Karpathy 在 2026 年 4 月发布的 LLM Wiki gist 提出了一种与 RAG 不同的个人知识管理模式：让 LLM 增量地"编译"原始资料为一个持久、可复利、互相链接的 Markdown wiki，而不是每次提问都从原始文档重新检索。当前仓库 `/workspace` 仅有一个占位 README，需要把这套模式落地到本仓库，作为用户长期积累「AI 学习 + 个人私密」知识的底座。
+仓库原先基于 Karpathy LLM Wiki gist 模式搭建（2026-07-12 首次建立），运行良好但存在结构性与维护性瓶颈：页面混合存储导致更新时易漏改（M1 事件）、矛盾靠 callout 堆叠会降低可读性、纯靠 LLM 手动 lint 在规模化时会漏检、用户原创思考无承载 type 而随会话流失。
+
+Garry Tan 的 [gbrain](https://github.com/garrytan/gbrain) 仓库（14.7 万页生产级部署）提供了系统化解法：Compiled Truth + Timeline 双区结构、Originals 文件夹、Brain-Agent Loop、机器化 doctor/sync 维护。本次重构以 GBrain 的「知识编译 + 双区结构 + 机器化维护」为核心引擎，融合本仓库原有优点（raw/ 不可变层、扁平 + frontmatter 结构、domain 三域隐私分层），升级为「GBrain-core 模式」，为规模化到 50-100 页打地基。
 
 ## What Changes
-- 在仓库根目录搭建 Karpathy 三层架构：`raw/`（不可变原始源）→ `wiki/`（LLM 维护的扁平 Markdown wiki）→ `AGENTS.md` + `CLAUDE.md`（schema 规范文件）。
-- 写一份中文 schema 文件，并同步出 `AGENTS.md`（Trae/Cursor/Codex 识别）与 `CLAUDE.md`（Claude Code 识别）两个副本，内容一致。
-- schema 文件定义：目录规则、页面模板、frontmatter 字段、命名约定、`[[wikilink]]` 交叉引用风格、引文格式、矛盾处理、Ingest/Query/Lint 三大操作工作流、index.md/log.md 维护规则。
-- 预填一个完整可运行示例：把 Karpathy 原始 gist 文本放入 `raw/karpathy-llm-wiki-gist.md`，并生成对应的 demo wiki 页（1 个概念页 + 1 个实体页 + 1 个综述页），以及填好的 `wiki/index.md` 与 `wiki/log.md`。
-- wiki 采用**扁平结构**，所有页面放在 `wiki/` 根下（不再分子目录），靠 frontmatter 的 `domain`（ai/personal）和 `type`（entity/concept/summary/source-note）字段区分。
-- 兼容 Obsidian：使用 `[[wikilink]]` 双向链接、frontmatter、callout 语法；新增 `.gitignore` 忽略 `.obsidian/` 等编辑器产物。
-- 更新根 `README.md`，说明仓库用途、三层架构、如何 ingest 一个新源、如何在 Obsidian 中打开。
+- **AGENTS.md 全量重写**：从「Karpathy LLM Wiki Schema」升级为「GBrain-core Wiki Schema」（14 节）。新增：§4.0 type 判定测试（MECE 决策树）、§4.1 双区结构（`## 时间线` 分界，上重写/下追加）、§4.6 media 模板、§4.7 original 模板、§8 矛盾处理双区版、§9.1 ingest 强制自检 checklist（8 项）、§9.2 query 前置全量关键词扫描、§9.3 lint 机器化（8 项检查）、§10.1 主题 MOC、§13 对话中 original 主动捕获、§14 机器化维护。
+- **type 从 4 种扩为 6 种**：`entity` / `concept` / `summary` / `source-note` / `original` / `media`。media 与 source-note 按资料形态分流（媒体作品 → media；文字资料 → source-note）。
+- **frontmatter 加可选字段 `reliability`**：high/medium/low，低可信源结论标注「待权威源验证」。
+- **CLAUDE.md 同步**：与 AGENTS.md 逐字一致。
+- **scripts/wiki-lint.sh 新建**：纯 bash/grep 机器化体检脚本，8 项检查 + 反向链接矩阵，无外部依赖。
+- **13 个 wiki 页全量迁移**：所有页加 `## 时间线` 双区结构；4 个 source-note（媒体作品类）转 media 类型（章节「来源元信息」→「作品元信息」）；2 个 entity 时间线从表格改为新列表格式；所有页 frontmatter 加 reliability；修复 2 处失效交叉引用。
+- **index.md 重写**：顶部加主题 MOC（4 个主题），下方 domain × type 分组扩为 6 种 type（预留 original/media 槽位）。
+- **log.md 追加**：schema-update 记录，含完整变更说明。
+- **Trae Schedule 创建**：每周一 09:00（Beijing time）自动触发 lint，报告写进 log.md。
 
 非变更（明确不做）：
-- **不**写任何应用程序代码（无 Python/Node 脚本、无 API 调用、无构建步骤）。
-- **不**引入向量数据库或 RAG 管线。
-- **不**预填用户私密内容，私密领域只留模板说明。
+- **不**放弃 `raw/` 不可变层（保留三层架构）。
+- **不**改为 MECE 子目录结构（保持扁平 + frontmatter 区分）。
+- **不**引入数据库/CLI/向量检索（保持纯 markdown + Obsidian 友好）。
+- **不**全面 entity detection（只主动捕获 original，entity/concept 仍走手动 ingest）。
+- **不**修改任何 `raw/` 下文件。
 
 ## Impact
-- Affected specs: 无（仓库首次建立 spec）。
-- Affected code: 新增 `AGENTS.md`、`CLAUDE.md`、`.gitignore`、`raw/karpathy-llm-wiki-gist.md`、`wiki/index.md`、`wiki/log.md`、`wiki/llm-wiki.md`、`wiki/andrej-karpathy.md`、`wiki/rag-vs-llm-wiki.md`；修改 `README.md`。
-- 后续任何 AI 编程助手（Trae/Claude Code/Cursor/Codex）打开本仓库时，会自动读取 `AGENTS.md`/`CLAUDE.md` 作为项目规则，按 wiki 维护者身份工作。
+- Affected specs: 本文件（原地更新为 GBrain-core 版）。
+- Affected code: `AGENTS.md`（全量重写）、`CLAUDE.md`（同步）、`scripts/wiki-lint.sh`（新建）、`wiki/index.md`（重写）、13 个 wiki 页（迁移）、`wiki/log.md`（追加）、`README.md`（更新）、`.trae/specs/build-llm-wiki/{spec,checklist,tasks}.md`（更新）、Trae Schedule（新建）。
+- 后续任何 AI 编程助手打开本仓库时，会读取新 AGENTS.md/CLAUDE.md，按 GBrain-core 维护者身份工作：遇资料先判定 type、双区结构更新、ingest 末尾自检、对话中主动捕获 original。
 
 ## ADDED Requirements
 
-### Requirement: 三层目录架构
-系统 SHALL 在仓库根目录提供 Karpathy LLM Wiki 的三层结构：
-- `raw/` —— 原始源文件目录，schema MUST 声明其**不可变**，LLM 只读不写。
-- `wiki/` —— LLM 完全拥有的 Markdown wiki 目录，扁平结构，不分子目录。
-- `AGENTS.md` 与 `CLAUDE.md` —— schema 规范文件，二者内容 MUST 一致。
+### Requirement: 双区结构（Compiled Truth + Timeline）
+每个知识页 SHALL 包含「编译真相」与「时间线」双区，用 `## 时间线` 二级标题作为分界。
 
-#### Scenario: 目录就位
-- **WHEN** 任何人打开仓库
-- **THEN** 能看到 `raw/`、`wiki/`、`AGENTS.md`、`CLAUDE.md`、`README.md`、`.gitignore` 均存在
-- **AND** `wiki/` 下直接是 `.md` 文件，无子目录
+#### Scenario: 编译真相随证据重写
+- **WHEN** LLM ingest 一个新源，发现某页编译真相需更新
+- **THEN** LLM MUST 重写编译真相区（`## 时间线` 以上）为最新综合
+- **AND** MUST NOT 在编译真相区追加旧结论
 
-#### Scenario: raw 不可变
-- **WHEN** LLM 按 schema 工作时
-- **THEN** LLM 只从 `raw/` 读取，MUST NOT 修改或删除 `raw/` 下任何文件
+#### Scenario: 时间线只追加不编辑
+- **WHEN** 时间线已有条目
+- **THEN** LLM MUST NOT 编辑既有条目
+- **AND** 新信息 MUST 追加为新条目，格式 `- YYYY-MM-DD | 摘要\n  （来源：raw/xxx.md § 章节）`
 
-### Requirement: Schema 文件（AGENTS.md / CLAUDE.md）
-schema 文件 SHALL 用中文撰写，并包含以下章节：
-1. 项目概述（三层架构、人机分工）
-2. 目录结构与不可变规则
-3. 页面 frontmatter 模板（必填字段：`title`、`type`、`domain`、`tags`、`sources`、`created`、`updated`）
-4. 页面正文模板（按 `type` 区分：entity / concept / summary / source-note）
-5. 文件命名约定（kebab-case 英文文件名，便于跨平台与 Obsidian 链接）
-6. 交叉引用风格（Obsidian `[[wikilink]]`，禁用纯相对路径链接）
-7. 引文格式（页内引用 MUST 标注来源 `raw/xxx.md` 及锚点）
-8. 矛盾处理（新旧资料冲突时 MUST 用 `> [!warning]` callout 标注，MUST NOT 静默覆盖旧结论）
-9. 三大操作工作流：
-   - **Ingest**：读 `raw/` 新源 → 提取实体/概念 → 创建或更新相关 wiki 页（一次可能触达 10-15 个文件）→ 更新 `index.md` → 追加 `log.md`
-   - **Query**：读 `index.md` 找相关页 → 综合回答 → 引用回具体 wiki 页
-   - **Lint**：检查矛盾、过时声明、孤岛页、缺失交叉引用
-10. `index.md` 维护规则（按 domain × type 分组列出所有页）
-11. `log.md` 维护规则（追加式，每条含时间戳、操作类型、触达文件列表）
-12. 领域适配（`domain: ai` 与 `domain: personal` 各自的页面类型偏好与隐私提示）
+#### Scenario: 矛盾处理走双区
+- **WHEN** 新源与编译真相已有结论冲突
+- **THEN** LLM MUST 在时间线追加「修正」条目
+- **AND** MUST 重写编译真相为最新结论
+- **AND** 旧结论永久保留在时间线里
 
-#### Scenario: 双文件同步
-- **WHEN** 完成 schema 撰写
-- **THEN** `AGENTS.md` 与 `CLAUDE.md` 内容**逐字一致**
-- **AND** Trae/Cursor/Codex 读 `AGENTS.md`，Claude Code 读 `CLAUDE.md`，行为一致
+### Requirement: 六种 type 的 MECE 判定
+type 字段取值 SHALL 为 6 种之一：`entity` / `concept` / `summary` / `source-note` / `original` / `media`。每个知识对象经 §4.0 判定测试落入唯一一种 type。
 
-#### Scenario: 矛盾不被静默覆盖
-- **WHEN** LLM ingest 一个新源，发现与某 wiki 页已有结论冲突
-- **THEN** LLM MUST 在该页用 `> [!warning] 矛盾` callout 写明新旧两方与来源
-- **AND** MUST NOT 直接删除旧结论
+#### Scenario: media 与 source-note 按资料形态分流
+- **WHEN** ingest 一个视频/图文/播客作品
+- **THEN** LLM MUST 建 `media` 页（章节「作品元信息」）
+- **WHEN** ingest 一篇文章/论文/gist
+- **THEN** LLM MUST 建 `source-note` 页（章节「来源元信息」）
 
-### Requirement: 预填完整示例
-系统 SHALL 预填一个可运行的示例，让 LLM 看到正确格式：
-- `raw/karpathy-llm-wiki-gist.md` —— Karpathy 原始 gist 全文（作为第一个原始源）。
-- `wiki/llm-wiki.md` —— 概念页（`type: concept`, `domain: ai`）。
-- `wiki/andrej-karpathy.md` —— 实体页（`type: entity`, `domain: ai`）。
-- `wiki/rag-vs-llm-wiki.md` —— 综述页（`type: summary`, `domain: ai`），含对比表格。
-- `wiki/index.md` —— 主目录，按 domain × type 分组列出上述 3 个示例页。
-- `wiki/log.md` —— 操作日志，记录"ingest raw/karpathy-llm-wiki-gist.md"这一条操作，触达文件列表完整。
+#### Scenario: original 承载用户原创思考
+- **WHEN** 用户在对话中表达原创框架/命名/洞见
+- **THEN** LLM MUST 主动询问是否捕获为 original 页
+- **AND** 用户同意后，文件名用用户原话的 kebab-case，`## 原始表述` 逐字保留用户原话
 
-#### Scenario: 示例页符合模板
-- **WHEN** 检查任意示例 wiki 页
-- **THEN** 其 frontmatter 包含所有必填字段
-- **AND** 正文结构符合其 `type` 对应模板
-- **AND** 页内至少包含一条 `[[wikilink]]` 指向另一示例页
+### Requirement: 机器化体检脚本
+系统 SHALL 提供 `scripts/wiki-lint.sh`（纯 bash/grep，无外部依赖），执行 8 项机器化检查 + 反向链接矩阵。
 
-#### Scenario: 示例链接可解析
-- **WHEN** 在 Obsidian 中打开 `wiki/` 作为 vault
-- **THEN** 所有 `[[wikilink]]` 都能正确跳转到存在的页面，无悬空链接
+#### Scenario: 脚本可独立运行
+- **WHEN** 运行 `bash scripts/wiki-lint.sh`
+- **THEN** 脚本输出 8 项检查结果（frontmatter 完整性、双区结构、孤岛页、悬空引用、sources 与 raw 对齐、index 与实际页对齐、时间线格式、反向链接矩阵）
+- **AND** 退出码为 0（无错误）或 1（有错误）
 
-### Requirement: Obsidian 兼容
-系统 SHALL 确保仓库可作为 Obsidian vault 直接打开：
-- 所有交叉引用使用 `[[filename]]` 或 `[[filename|显示文本]]` 语法。
-- frontmatter 使用 YAML，字段名稳定。
-- `.gitignore` MUST 忽略 `.obsidian/` 目录与常见编辑器临时文件。
+### Requirement: Trae Schedule 定期自动 lint
+系统 SHALL 通过 Trae Schedule 设定每周自动触发一次 lint。
 
-#### Scenario: Obsidian 打开无残留
-- **WHEN** 用户用 Obsidian 打开 `wiki/` 或仓库根目录
-- **THEN** 图谱视图能展示示例页之间的链接关系
-- **AND** `.obsidian/` 不会污染 git
+#### Scenario: 每周自动体检
+- **WHEN** 每周一 09:00（Beijing time）
+- **THEN** Schedule 自动派发新会话执行 lint
+- **AND** 报告写进 `wiki/log.md`（操作类型 `lint`，说明标注「Schedule 自动触发」）
 
-### Requirement: README 说明
-根 `README.md` SHALL 用中文说明：
-- 仓库是什么（LLM Wiki，Karpathy 模式）
-- 三层架构示意
-- 如何 ingest 一个新源（把文件丢进 `raw/`，对 AI 助手说"ingest raw/xxx"）
-- 如何 query（直接问，AI 会查 `index.md` 后综合）
-- 如何 lint（对 AI 助手说"lint wiki"）
-- 如何在 Obsidian 中打开
+### Requirement: ingest 强制自检 checklist
+ingest 完成前 MUST 执行 8 项自检，任一为否则不允许结束本次 ingest。
 
-#### Scenario: 新用户可上手
-- **WHEN** 一个新用户读 `README.md`
-- **THEN** 能在不看 schema 的情况下知道仓库用法与三大操作
+#### Scenario: 自检全通过才结束
+- **WHEN** LLM 完成 ingest 的 8 个步骤
+- **THEN** LLM MUST 逐条声明 8 项自检 checklist 全部为真
+- **AND** 若任一为假，MUST 回去补齐
 
 ## MODIFIED Requirements
 
+### Requirement: 三层目录架构
+原 Karpathy 三层架构（raw / wiki / schema）保留，新增 `scripts/` 目录承载机器化体检脚本。
+
+#### Scenario: 目录就位
+- **WHEN** 任何人打开仓库
+- **THEN** 能看到 `raw/`、`wiki/`、`scripts/`、`AGENTS.md`、`CLAUDE.md`、`README.md`、`.gitignore` 均存在
+- **AND** `wiki/` 下直接是 `.md` 文件，无子目录
+- **AND** `scripts/` 下含 `wiki-lint.sh`
+
+### Requirement: Schema 文件（AGENTS.md / CLAUDE.md）
+schema 文件 SHALL 用中文撰写，并包含以下 14 个章节：
+1. 项目概述（GBrain-core 模式、三层架构、人机分工）
+2. 目录结构与不可变规则
+3. 页面 frontmatter 模板（必填字段 + 可选 reliability）
+4. 六种 type 的判定测试与正文模板（含 §4.0 MECE 决策树、§4.1 双区结构、§4.2-4.7 各 type 模板）
+5. 命名约定（kebab-case，original 用用户原话）
+6. 交叉引用风格（单向 `[[wikilink]]`，反向链接由 lint 脚本算）
+7. 引文格式（timeline source 增强为 `raw/xxx.md § 章节` 精确引用）
+8. 矛盾处理规则（双区版：时间线追加修正 + 编译真相重写）
+9. 三大操作工作流（ingest 含自检 checklist、query 含全量扫描、lint 机器化）
+10. index.md 维护规则（主题 MOC + domain × type 分组）
+11. log.md 维护规则（追加式，操作类型含 schema-update）
+12. 领域适配（ai / personal / hobby 三域）
+13. 对话中 original 主动捕获
+14. 机器化维护（lint 脚本 + Trae Schedule）
+
+### Requirement: index.md 双视图
+index.md SHALL 包含两个视图：顶部主题 MOC + 下方 domain × type 分组。
+
+#### Scenario: 主题 MOC 聚合跨 type 相关页
+- **WHEN** 用户浏览 index.md 顶部
+- **THEN** 能看到按主题（如「FPV / 穿越机」「知识管理」）聚合的相关页 `[[wikilink]]`
+
 ### Requirement: 根 README.md
-原 `README.md` 内容仅为 `# FuNao-JiLu\n隐私`。SHALL 替换为完整的 LLM Wiki 用法说明（见上文 Requirement: README 说明），但保留原标题 `FuNao-JiLu` 作为仓库名标识。
+README.md SHALL 用中文说明 GBrain-core 模式，包含：
+- 仓库是什么（GBrain-core Wiki，融合 GBrain + Karpathy）
+- 三层架构 + scripts/ 示意
+- 6 种 type 与 3 个 domain 说明
+- 双区结构（编译真相 + 时间线）说明
+- 三大操作（ingest / query / lint）
+- 机器化维护（lint 脚本 + Schedule）
+- 如何在 Obsidian 中打开
 
 ## REMOVED Requirements
-无。
+- 旧 spec 中的「矛盾处理用 `> [!warning]` callout 标注」改为双区结构处理（callout 仅作临时标注，裁定后移除）。
+- 旧 spec 中的「四种 type」改为六种 type。
+- 旧 spec 中的「无应用程序代码」改为「有 scripts/wiki-lint.sh 机器化体检脚本」。
