@@ -1,17 +1,18 @@
 ---
 title: "暖暖小星球：宝宝哭闹就全身挠一遍（抖音视频笔记）"
-type: source-note
+type: media
 domain: personal
 tags: [parenting, baby-cry, baby-itch, douyin, chinese-community, soothing]
 sources:
   - raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md
+reliability: low
 created: 2026-07-12
 updated: 2026-07-12
 ---
 
 # 暖暖小星球：宝宝哭闹就全身挠一遍
 
-## 来源元信息
+## 作品元信息
 
 - **文件**：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md
 - **类型**：抖音短视频（时长 00:18，极短视频）
@@ -44,3 +45,8 @@ updated: 2026-07-12
 ## 关联页
 
 - [[baby-cry-locate-itch]] —— 本视频所科普的核心育儿技巧概念页
+
+## 时间线
+
+- 2026-07-12 10:07 | 首次 ingest 自 raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md
+  （来源：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md）

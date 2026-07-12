@@ -1,17 +1,18 @@
 ---
 title: "全球都知道：千分尺使用方法（抖音视频笔记）"
-type: source-note
+type: media
 domain: hobby
 tags: [micrometer, 千分尺, douyin, 科普, science-popularization, 原理动画]
 sources:
   - raw/micrometer-usage-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 全球都知道：千分尺使用方法
 
-## 来源元信息
+## 作品元信息
 
 - **文件**：raw/micrometer-usage-douyin-2026-06.md
 - **类型**：抖音短视频（时长 01:44，系列第2集）
@@ -50,3 +51,8 @@ updated: 2026-07-12
 
 - [[micrometer]] —— 视频所讲解的量具概念
 - [[quanqiu-dou-zhidao]] —— 视频作者
+
+## 时间线
+
+- 2026-07-12 12:51 | 首次 ingest 自 raw/micrometer-usage-douyin-2026-06.md
+  （来源：raw/micrometer-usage-douyin-2026-06.md）

@@ -7,6 +7,7 @@ sources:
   - raw/karpathy-llm-wiki-gist.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: high
 ---
 
 # RAG vs LLM Wiki
@@ -53,3 +54,8 @@ gist 对 RAG 的核心批评是「没有累积」：
 
 - raw/karpathy-llm-wiki-gist.md（本综述核心原始源）
 - 相关 wiki 页：[[llm-wiki]]、[[andrej-karpathy]]、[[second-brain]]（第二大脑视角：传统 PKM 的维护成本问题正是 LLM Wiki 用 LLM 补上的缺口）
+
+## 时间线
+
+- 2026-07-12 | 首次 ingest 自 raw/karpathy-llm-wiki-gist.md,建立 RAG vs LLM Wiki 系统对比
+  （来源：raw/karpathy-llm-wiki-gist.md）

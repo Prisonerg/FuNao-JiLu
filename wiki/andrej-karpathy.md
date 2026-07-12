@@ -8,6 +8,7 @@ sources:
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # Andrej Karpathy
@@ -38,15 +39,20 @@ Andrej Karpathy 是 AI 研究者与 AI 教育者，OpenAI 联合创始成员之�
 
 ## 时间线
 
-| 时间 | 事件 |
-| --- | --- |
-| 2015 | 联合创始 OpenAI（公众已知事实） |
-| 2017 | 加入 Tesla，担任 AI 总监，负责 Autopilot 视觉团队（公众已知事实） |
-| 2022 | 离开 Tesla（公众已知事实；精确月份待补充） |
-| 2023 | 回到 OpenAI（公众已知事实；精确月份待补充） |
-| 2024 | 创立 Eureka Labs，专注 AI 教育（公众已知事实） |
-| 2026-04 | 发布 LLM Wiki gist，提出 LLM Wiki 模式（来源：raw/karpathy-llm-wiki-gist.md） |
-| 2026-06 | 中文社区出现 LLM Wiki「学习潮」反响（抖音「苏大讲AI」科普视频，1.1 万赞；来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息） |
+- 2015 | 联合创始 OpenAI
+  （来源：公众已知事实）
+- 2017 | 加入 Tesla，担任 AI 总监，负责 Autopilot 视觉团队
+  （来源：公众已知事实）
+- 2022 | 离开 Tesla（精确月份待补充）
+  （来源：公众已知事实）
+- 2023 | 回到 OpenAI（精确月份待补充）
+  （来源：公众已知事实）
+- 2024 | 创立 Eureka Labs，专注 AI 教育
+  （来源：公众已知事实）
+- 2026-04 | 发布 LLM Wiki gist，提出 LLM Wiki 模式
+  （来源：raw/karpathy-llm-wiki-gist.md）
+- 2026-06 | 中文社区出现 LLM Wiki「学习潮」反响（抖音「苏大讲AI」科普视频，1.1 万赞）
+  （来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息）
 
 ## 关联实体
 

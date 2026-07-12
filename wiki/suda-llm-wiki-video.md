@@ -1,17 +1,18 @@
 ---
 title: "苏大讲AI：卡帕西引爆的 LLM Wiki 学习潮（抖音视频笔记）"
-type: source-note
+type: media
 domain: ai
 tags: [llm-wiki, karpathy, second-brain, obsidian, claude, douyin, chinese-community]
 sources:
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: low
 ---
 
 # 苏大讲AI：卡帕西引爆的 LLM Wiki 学习潮
 
-## 来源元信息
+## 作品元信息
 
 - **文件**：raw/suda-llm-wiki-douyin-2026-06.md
 - **类型**：抖音短视频（时长 01:55）
@@ -49,3 +50,8 @@ updated: 2026-07-12
 - [[andrej-karpathy]] —— 视频所述「引爆者」
 - [[rag-vs-llm-wiki]] —— 视频「AI 记忆力差」论点对应 Karpathy 对 RAG 的批评
 - [[second-brain]] —— 视频把 LLM Wiki 等同的本土化概念
+
+## 时间线
+
+- 2026-07-12 09:04 | 首次 ingest 自 raw/suda-llm-wiki-douyin-2026-06.md
+  （来源：raw/suda-llm-wiki-douyin-2026-06.md）

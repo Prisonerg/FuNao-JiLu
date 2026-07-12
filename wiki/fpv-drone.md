@@ -7,6 +7,7 @@ sources:
   - raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 穿越机 / FPV 无人机
@@ -38,3 +39,8 @@ FPV（First Person View）无人机，中文社区称「穿越机」，是一类
 - [[fpv-assembly-tools]] —— 穿越机装机必备工具与耗材清单
 - [[fpv-assembly-tools-infographic]] —— 装机工具信息图源笔记
 - [[secret-fpv-pilot]] —— 装机工具信息图作者
+
+## 时间线
+
+- 2026-07-12 10:37 | 首次 ingest 自 raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md,建立穿越机概念页
+  （来源：raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md）

@@ -8,6 +8,7 @@ sources:
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
 updated: 2026-07-12
+reliability: medium
 ---
 
 # 第二大脑（Second Brain）
@@ -48,3 +49,10 @@ updated: 2026-07-12
 - [[rag-vs-llm-wiki]] —— 第二大脑与 RAG 的累积性对比
 - [[andrej-karpathy]] —— LLM Wiki（第二大脑的 LLM 化形态）的提出者
 - [[suda-llm-wiki-video]] —— 把 LLM Wiki 直接等同于「Obsidian + Claude 建第二大脑」的中文科普源
+
+## 时间线
+
+- 2026-07-12 09:04 | 首次建立,源自 raw/suda-llm-wiki-douyin-2026-06.md 把 LLM Wiki 等同第二大脑的本土化框架
+  （来源：raw/suda-llm-wiki-douyin-2026-06.md § 章节要点-总述）
+- 2026-07-12 09:04 | 补充与 [[llm-wiki]] 的对比,加 gist 源
+  （来源：raw/karpathy-llm-wiki-gist.md）
