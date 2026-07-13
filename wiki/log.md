@@ -60,3 +60,9 @@
 - **源文件**：—（Schedule 自动触发）
 - **触达的 wiki 文件**：wiki/second-brain.md
 - **说明**：Schedule 自动触发的每周 lint。机器化体检（8 项检查 + 反向链接矩阵）0 错误 0 警告通过。LLM 补充检查：(1) 矛盾检查——14 页编译真相交叉比对，无矛盾；(2) 过时声明——所有页 updated 均为今日（2026-07-12），无过时；(3) 缺失交叉引用——发现 1 项：[second-brain] 局限段「概念边界模糊」正文用 raw 文件路径指代苏大讲AI 视频，未用 [[wikilink]]，已补链为 [[suda-llm-wiki-video]]；(4) 编译真相与时间线一致性——14 页均一致；[andrej-karpathy] 时间线 2015-2024 五条公众已知事实条目用「（来源：公众已知事实）」而非 raw/ 格式，系页内 callout 已显式标注的已知缺口（待 ingest 传记源补全），本次不修。修复后重跑 lint 仍 0 错误 0 警告。
+
+### 2026-07-13 09:42 - lint
+
+- **源文件**：—（Schedule 自动触发）
+- **触达的 wiki 文件**：—
+- **说明**：Schedule 自动触发的每周 lint。机器化体检（8 项检查 + 反向链接矩阵）0 错误 0 警告通过：页面总数 20，孤岛页 0，悬空引用 0，frontmatter/双区结构/sources 对齐/index 对齐/时间线格式均通过，反向链接矩阵显示所有页入链数 ≥2。LLM 补充检查：(1) 矛盾检查——20 页编译真相交叉比对，无矛盾（UHPC 强度数据 2h 39.2MPa/1d 43.3MPa/28d 100MPa 在 uhpc/steel-fiber-concrete/concrete-patch-repair/compressive-strength/zhao-laoshi-jianzhu-keji-yuan/uhpc-steel-fiber-repair-douyin-2026-07 六页一致；Karpathy 身份「OpenAI 创始人 vs 联合创始成员之一」分歧已在 suda-llm-wiki-video 标注为口语化简化，不构成需 callout 的矛盾；micrometer/FPV/baby-cry 各组内一致）；(2) 过时声明——raw/ 下 6 个文件均未在 wiki 页 updated（2026-07-12）之后修改，无过时；(3) 缺失交叉引用——正文提及的未建链实体（Tiago Forte、Obsidian、Claude、Joshua Bardwell、Oscar Liang）均无对应 wiki 页，不构成缺失交叉引用，无新问题；(4) 编译真相与时间线一致性——20 页均一致；[andrej-karpathy] 时间线 2015-2024 五条「公众已知事实」条目仍为页内 callout 已标注的已知缺口（待 ingest 传记源补全），本次不修。体检通过，无需修复。
