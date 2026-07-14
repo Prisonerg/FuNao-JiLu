@@ -6,7 +6,7 @@ tags: [douyin, content-creator, 科普, science-popularization, 原理动画, me
 sources:
   - raw/micrometer-usage-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-14
+updated: 2026-07-12
 reliability: medium
 ---
 
@@ -29,17 +29,19 @@ reliability: medium
 
 - 2026-06-18 — 发布视频《第2集 | 建议收藏：千分尺使用方法》（详见 [[micrometer-usage-douyin-2026-06|源笔记]]），以原理动画讲解 [[micrometer|千分尺]] 结构与读数方法（来源：raw/micrometer-usage-douyin-2026-06.md § 视频元信息）。
 
-## 时间线
-
-- 2026-06-18 | 发布千分尺使用方法视频（系列第2集）
-  （来源：raw/micrometer-usage-douyin-2026-06.md）
-- 2026-07-12 | 本 wiki ingest 该视频
-  （来源：raw/micrometer-usage-douyin-2026-06.md）
-
 ## 关联实体
 
 - [[micrometer]] —— 其视频所讲解的量具概念
 - [[micrometer-usage-douyin-2026-06]] —— 其视频的源笔记
+
+## 时间线
+
+- 2026-06-18 | 发布千分尺使用方法视频（系列第2集）
+  （来源：raw/micrometer-usage-douyin-2026-06.md § 视频元信息）
+- 2026-07-12 | 本 wiki ingest 该视频
+  （来源：raw/micrometer-usage-douyin-2026-06.md § 视频元信息）
+- 2026-07-14 | 修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 2026-07-12（2026-07-14 07:33 lint 误刷，本次按 §3 新语义回退）
+  （来源：本页 frontmatter 核定，参见 log.md 2026-07-14 07:33 lint 条目）
 
 > [!note] 待补充
 > 目前仅 ingest 了一条视频，对该创作者的了解有限。同系列第1集为游标卡尺读数（暂未 ingest）。后续若 ingest 更多他的作品，可补充其内容风格、更新频率、常覆盖主题等信息。

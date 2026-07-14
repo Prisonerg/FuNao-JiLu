@@ -7,7 +7,7 @@ sources:
   - raw/karpathy-llm-wiki-gist.md
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-14
+updated: 2026-07-12
 reliability: medium
 ---
 
@@ -55,4 +55,6 @@ reliability: medium
 - 2026-07-12 09:04 | 首次建立,源自 raw/suda-llm-wiki-douyin-2026-06.md 把 LLM Wiki 等同第二大脑的本土化框架
   （来源：raw/suda-llm-wiki-douyin-2026-06.md § 章节要点-总述）
 - 2026-07-12 09:04 | 补充与 [[llm-wiki]] 的对比,加 gist 源
-  （来源：raw/karpathy-llm-wiki-gist.md）
+  （来源：raw/karpathy-llm-wiki-gist.md § Why this works）
+- 2026-07-14 | 修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 2026-07-12（2026-07-14 07:33 lint 误刷，本次按 §3 新语义回退）
+  （来源：本页 frontmatter 核定，参见 log.md 2026-07-14 07:33 lint 条目）

@@ -57,7 +57,7 @@ Trae / Cursor / Codex 等 AI 编程助手读取 AGENTS.md；Claude Code 读取 C
 | `tags` | 标签数组 | YAML 数组，小写英文为主，如 `[transformer, attention]` |
 | `sources` | 来源数组 | 指回 `raw/xxx.md`，可多条；格式为 `raw/文件名.md` |
 | `created` | 创建日期 | `YYYY-MM-DD` |
-| `updated` | 最后更新日期 | `YYYY-MM-DD`，每次编辑该页 MUST 刷新 |
+| `updated` | 最后更新日期 | `YYYY-MM-DD`，= 该页编译真相区最后一次重写的日期，NOT lint 触达日期、NOT index.md 刷新日期。每次重写编译真相区 MUST 刷新；lint 仅修复交叉引用或刷新 index.md 未重写编译真相区时 MUST NOT 改变 |
 
 **可选字段：**
 
@@ -103,6 +103,7 @@ updated: 2026-07-12
 - 具体某次视频内容进 `media`，不进 concept；视频催生的方法/理论进 `concept`，media 只记作品本身。
 - 别人 coin 的概念进 `concept`；用户自己的综合/解读进 `original`（synthesis IS original）。
 - `media` 与 `source-note` 按资料形态分流：媒体作品 → media；文字资料 → source-note。两者不重叠。
+- **单源综述 vs 单源笔记边界**：单源但采用综述形态（背景/论点/对比表/开放问题结构）→ `summary`；单源且为提炼笔记形态（核心要点/关键引文/延伸问题）→ `source-note`。区分靠正文结构而非源数量。例：[[rag-vs-llm-wiki]] 虽仅 1 源但用综述结构，归 summary。
 
 ### 4.1 双区结构（所有 type 通用）
 
@@ -426,6 +427,7 @@ updated: 2026-07-12
    - [ ] 每个新建页正文至少 1 条 `[[wikilink]]` 指向其它页
    - [ ] 编译真相区已重写整合（非追加旧结论）
    - [ ] 矛盾检查已执行（有则按 §8 处理）
+   - [ ] 本次 ingest 的 raw 文件本身已有对应 media/source-note 页（若否，补建）
 
 ### 9.2 Query（基于 wiki 综合回答）
 
@@ -437,6 +439,18 @@ updated: 2026-07-12
 4. **综合多页回答**：基于这些页的内容组织答案，不要只依赖单页。
 5. **引用具体页**：回答中用 `[[xxx]]` 或 `[[xxx|显示文本]]` 标注信息来自哪个 wiki 页，便于用户核查。
 6. **暴露知识缺口**：若问题触及 wiki 未覆盖的内容，明确告诉用户「这块 wiki 还没有，你可以 ingest 相关源」，不要编造。若缺口是用户刚在对话里提到的实体/概念，可提示是否要 ingest。
+7. **评估回填价值**：当本次 Query 综合了 3 个及以上 wiki 页、且回答过程中产生了新的对比表 / 新的连接 / 新的分析框架时，主动询问用户是否将本次综合回填为 `summary` 或 `original` 页。
+   - **触发条件**：综合了 3+ wiki 页 且回答产生了新对比表 / 新连接 / 新分析框架。
+   - **动作**：主动询问用户「本次综合产生了新洞见，要回填为 summary 或 original 页吗？」
+   - **用户同意后**：按对应 type 模板建页，frontmatter 的 `sources` 列出综合时读取的 wiki 页（用 `[[xxx]]` 形式），并在 `## 时间线` 首条记录本次回填；随后更新 index.md 对应分组、追加 log.md。
+   - **不强制回填**：若回答仅复述单页内容或未产生新综合，MUST NOT 主动建议回填（避免噪音）。
+   - **日志**：在 `log.md` 追加一条 `query-fileback` 操作记录（见 §11）。
+
+**输出形态选择指引**（按问题类型选输出形态）：
+- 对比型问题 → 表格
+- 趋势型问题 → 图（matplotlib）
+- 汇报型问题 → Marp 演示
+- 关系网络型问题 → canvas
 
 ### 9.3 Lint（体检）
 
@@ -534,23 +548,30 @@ updated: 2026-07-12
 
 `wiki/log.md` 是**追加式**操作日志：只追加，不修改，不删除历史条目（哪怕是错误的记录也保留，便于审计）。
 
-- 每条格式：
+- **新条目格式（本规范自 2026-07-14 起生效）：**
 
   ```markdown
-  ### YYYY-MM-DD HH:MM - 操作类型
+  ## [YYYY-MM-DD HH:MM] type | 简述
 
   - **源文件**：raw/xxx.md（若无则写「—」）
   - **触达的 wiki 文件**：wiki/a.md, wiki/b.md, …
   - **说明**：一句话简述本次做了什么；若涉及矛盾，写明冲突双方与所在页。
   ```
 
-- 操作类型取值：`ingest` / `query` / `lint` / `manual-edit` / `schema-update`。
+  - 二级标题 `##` 直接作为日志条目头，方括号内为时间戳，紧跟操作类型 `type`，`|` 后接一句话简述。
+  - 时间戳格式 `YYYY-MM-DD HH:MM`（24 小时制，时区按用户本地，默认 `Asia/Shanghai`）。
+  - `type` 取值见下方「操作类型取值」。
+  - 简述为一句话概述，便于扫描浏览；细节放进入 `**说明**` 字段。
+
+- **历史条目格式兼容（重要）：** 本规范 2026-07-14 之前的历史日志条目采用旧格式 `### YYYY-MM-DD HH:MM - 操作类型`（三级标题 + 短横线分隔）。鉴于 §11 追加式不删改原则，**历史条目保留原格式不迁移**；新条目一律采用 `## [YYYY-MM-DD HH:MM] type | 简述` 格式。两种格式在 log.md 中并存属正常现象，不构成格式错误。
+
+- 操作类型取值：`ingest` / `query` / `lint` / `manual-edit` / `schema-update` / `query-fileback`。
   - `ingest`：摄入新源（必含源文件与触达列表）。
   - `query`：回答了一个较复杂、值得留痕的问题（简单问答可不记）。
   - `lint`：执行了体检（含发现的问题与修复）。
   - `manual-edit`：用户手动改了 wiki，LLM 事后补记。
   - `schema-update`：更新了 AGENTS.md / CLAUDE.md Schema 本身。
-- 时间戳用 24 小时制，时区按用户本地（默认 `Asia/Shanghai`）。
+  - `query-fileback`：Query 回填新页（必含源 wiki 页列表与新建页）。
 - 日志采用**正序（旧在上、新在下追加）**。
 
 ## 12. 领域适配
@@ -615,6 +636,39 @@ LLM 或用户随时可手动运行；Trae Schedule 定期自动触发。
 ### 14.2 Trae Schedule 定期自动 lint
 
 通过 Trae 的 `Schedule` 工具设定每周自动触发一次 lint，把报告写进 `log.md`。自动化触发的 lint 记为 `lint` 操作类型，说明里标注「Schedule 自动触发」。
+
+### 14.3 git 工作流
+
+每次 ingest/lint/schema-update 后建议执行 conventional commit，用户确认后提交：
+
+- ingest：`feat(wiki): ingest raw/xxx.md`
+- lint：`chore(wiki): lint fix`
+- schema-update：`docs(schema): update §X`
+
+提交前 MUST 确保 `bash scripts/wiki-lint.sh` 退出码 0。提交粒度按操作类型，不混合多个 ingest。
+
+### 14.4 规模化搜索阈值
+
+当 wiki 知识页 >100 且 Query 工作流步骤 2「全量关键词扫描」出现漏页时，引入专门搜索引擎 qmd：
+
+- 安装：`npm install -g @tobilu/qmd`
+- 建 collection：`qmd collection add wiki/ --name wiki`
+- 嵌入：`qmd embed`
+- Query 步骤 2 改为：先 `qmd query "关键词" --json -n 10` 粗筛，再读相关页编译真相区
+
+qmd 是 8 阶段混合检索流水线（BM25 SQLite FTS5 + 向量语义搜索 + LLM 重排 Qwen3-Reranker），完全本地运行（node-llama-cpp + GGUF），支持 MCP server（Claude Desktop/Claude Code 即插即用）。三种搜索模式：`search`(BM25)、`vsearch`(向量)、`query`(混合+重排)。
+
+引入阈值：知识页 ≤100 时 index.md + Grep 全量扫描即够用；>100 且漏页时引入 qmd。
+
+### 14.5 entity 主动检测
+
+ingest 步骤 3「提取实体与概念」后，LLM SHOULD 检查高频实体是否已有 entity 页：
+
+- 高频出现的人/组织/产品/工具（在 raw 中被提及 3+ 次或为核心主体）无对应 entity 页时，主动询问用户是否补建
+- 用户同意后，按 §4.2 entity 模板建页
+- 用户不同意时不建页，继续 ingest
+
+避免每个低频提及都建页的噪音，只对高频核心实体主动询问。
 
 ---
 
