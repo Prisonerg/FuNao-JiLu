@@ -85,11 +85,12 @@ UHPC（Ultra-High Performance Concrete，超高性能混凝土）是一类抗压
 - [[concrete-patch-repair]] —— UHPC 的典型应用场景
 - [[compressive-strength]] —— UHPC 的核心性能指标
 - [[uhpc-steel-fiber-repair-douyin-2026-07]] —— 本概念所依据的视频笔记（原始源）
+- [[uhpc-authoritative-standards-note]] —— UHPC 权威规范源笔记（GB/T 31387-2025 征求意见稿）
 - [[zhao-laoshi-jianzhu-keji-yuan]] —— 视频作者
 
 ## 时间线
 
 - 2026-07-12 17:35 | 首次 ingest 自 raw/uhpc-steel-fiber-repair-douyin-2026-07.md，建立 UHPC 概念页（定义、配方组分、强度发展、应用场景）
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 全文）
 - 2026-07-12 18:20 | 补充权威源数据：整合 GB/T 31387-2025 征求意见稿强度等级（UC100-UC200）、UHPC 典型配比（水胶比 0.15-0.22、钢纤维 2%-3%）、耐久性指标。修正：原编译真相未提强度等级体系，现补充 UC100-UC200 六级；原称 UHPC 配方「42.5 水泥」未评述，现标注「UHPC 常用 52.5+，视频用 42.5 偏低但达 100 MPa 说明配合比设计比水泥标号更重要」
   （来源：raw/uhpc-authoritative-standards-2026-07.md § 一、§ 二、§ 六）

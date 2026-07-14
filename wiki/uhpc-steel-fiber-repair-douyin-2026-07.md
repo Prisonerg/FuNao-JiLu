@@ -62,6 +62,6 @@ reliability: medium
 ## 时间线
 
 - 2026-07-12 17:35 | 首次 ingest 自 raw/uhpc-steel-fiber-repair-douyin-2026-07.md
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 全文）
 - 2026-07-12 18:20 | 补充权威源交叉验证：sources 加 raw/uhpc-authoritative-standards-2026-07.md。视频所述 28 天 100 MPa 经 GB/T 31387-2025 征求意见稿核实达 UC100 起步等级；2h 39.2 MPa、1d 43.3 MPa 符合 UHPC 早强特性；42.5 水泥偏低但达 100 MPa 说明配合比设计比水泥标号更重要。延伸问题新增「交叉验证结论」条目
   （来源：raw/uhpc-authoritative-standards-2026-07.md § 六）

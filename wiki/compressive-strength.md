@@ -99,6 +99,6 @@ reliability: high
 ## 时间线
 
 - 2026-07-12 17:35 | 首次 ingest 自 raw/uhpc-steel-fiber-repair-douyin-2026-07.md，建立抗压强度概念页（定义、强度等级、发展曲线、视频数据点、影响因素）
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 全文）
 - 2026-07-12 18:20 | 补充权威源数据：整合 GB/T 31387-2025 UC100-UC200 强度等级体系、CECS 38 CF20-CF80 体系、UHPC 典型力学性能（抗拉 8-12 MPa、抗折 25-35 MPa、弹性模量 45-55 GPa、孔隙率 <1%）、强度发展典型曲线（1d 60%、3d 80%、7d 接近 100%）。修正：原编译真相仅给「C30/C40/C60」普通混凝土等级，现补充 UHPC UC100-UC200 与 SFRC CF20-CF80 两套等级体系；原称「1 天约达 28 天强度 30%-50%」为普通混凝土数据，现区分 UHPC（60%）与普通混凝土（30%）
   （来源：raw/uhpc-authoritative-standards-2026-07.md § 一、§ 二、§ 三）
