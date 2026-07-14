@@ -59,8 +59,15 @@
   - 20 个 wiki 页（updated 字段核定）
   - `skills/llm-wiki-{ingest,query,lint}/SKILL.md`（瘦壳化）
   - 新建 `reports/` 目录（lint 报告分离）
-  - 【阻塞项】新建 2 source-note + 2 entity 页
+  - 新建 4 个 wiki 页（2 source-note + 2 entity）
+  - 新建 1 个 raw 文件（`raw/karpathy-biography-web-2026-07.md`，用户授权网络检索落盘，§9.1 方式 A 扩展）
 - **后续影响**：任何 AI 助手打开本仓库将按优化后的 Schema 工作，Query 回填使探索复利，lint 可信度提升，index 维护成本下降。
+- **执行顺序约束**：
+  - Task 4（修 andrej-karpathy 双区结构）→ Task 29（补同页时间线）：同文件顺序执行，避免合并冲突。
+  - Task 8（query skill 补回填）→ Task 20（skill 瘦壳化重写）：Task 20 应纳入 Task 8 内容，避免重写覆盖。
+  - Task 15（updated 语义）→ Task 16（updated 核定）→ Task 9 检查 7（updated 与 ingest 一致）。
+  - Task 11（index 快速入口）→ Task 9 检查 5（index 与 lint 一致）。
+  - Task 27/28（新页）应在 Task 19（Dataview）之后，避免重复手动登记（Dataview 自动渲染 domain×type 分组）。
 
 ## ADDED Requirements
 
@@ -110,6 +117,47 @@ index.md 的「最近更新」「标签索引」「domain×type 分组」三段 
 - **THEN** log.md 只记一行摘要（日期 + 错误/警告数 + 详见 reports/lint-YYYY-MM-DD.md）
 - **AND** 详细报告（含反向链接矩阵）写到 `reports/lint-YYYY-MM-DD.md`
 
+### Requirement: 网络检索落盘 raw/ 的合法性边界
+用户授权的网络检索多源整合 SHALL 视为 §9.1 方式 A（URL 直接 ingest）的扩展：用户提供检索主题 → LLM WebSearch 多源检索 → 交叉验证 → 落盘 `raw/xxx.md`（含来源 URLs）→ 走标准 ingest 流程。落盘 raw 文件 MUST 在文件头标注「本文件由 LLM 经 WebSearch 多源检索整理落盘，用户授权」+ 列出所有来源 URLs。
+
+#### Scenario: 网络检索落盘
+- **WHEN** 用户要求 LLM 自行联网搜索补全某页缺失信息
+- **THEN** LLM MUST 先 WebSearch 多源检索 + 交叉验证一致性
+- **AND** 整理为 raw 格式落盘 `raw/xxx-web-YYYY-MM.md`（文件名体现「网络检索」性质）
+- **AND** raw 文件头标注「LLM WebSearch 整理 + 用户授权」+ 列出所有来源 URLs
+- **AND** 走标准 ingest 流程整合到对应 wiki 页
+
+### Requirement: 新建 wiki 页合规性
+本 spec 新建的 4 个 wiki 页（2 source-note + 2 entity）SHALL 满足全部 Schema 不可变规则：
+
+#### Scenario: 新页 frontmatter 完整
+- **WHEN** 新建 wiki 页
+- **THEN** frontmatter MUST 含 title/type/domain/tags/sources/created/updated/reliability 全部字段
+- **AND** `created` = `updated` = 2026-07-14（建页日）
+
+#### Scenario: 新页双区结构
+- **WHEN** 新建 wiki 页
+- **THEN** MUST 含 `## 时间线` 二级标题作为分界
+- **AND** entity 页的 `## 关联实体` 段在 `## 时间线` 之上（避免重蹈 Task 4 修复的覆辙）
+
+#### Scenario: 新页 wikilink 与 sources
+- **WHEN** 新建 wiki 页
+- **THEN** 正文 MUST 至少含 1 条 `[[wikilink]]` 指向其它 wiki 页（避免孤岛）
+- **AND** frontmatter `sources` MUST 列出对应的 raw 文件
+
+#### Scenario: 新页 reliability 取值
+- **WHEN** 新建 wiki 页
+- **THEN** reliability MUST 按来源可信度标注：
+  - `karpathy-biography` source-note → `medium`（网络多源交叉验证，非一手权威）
+  - `uhpc-authoritative` source-note → `high`（国标 + 学术论文）
+  - `suda-llm-wiki` entity → `low`（网络检索未找到权威背景）
+  - `nuan-nuan-baby-cry-scratch` entity → `low`（网络检索未找到权威背景）
+
+#### Scenario: 低可靠性页显式标注缺口
+- **WHEN** reliability 为 `low` 的 entity 页
+- **THEN** 编译真相区 MUST 含 callout 标注「网络检索未找到权威背景，待后续 ingest 权威源升级」
+- **AND** 时间线首条标注来源为「raw/xxx.md + 网络检索」
+
 ## MODIFIED Requirements
 
 ### Requirement: §3 frontmatter `updated` 语义
@@ -151,7 +199,9 @@ ingest 完成前 MUST 自检 9 项（原 8 项 + 新增第 9 项）：「本次 
 `andrej-karpathy.md`、`quanqiu-dou-zhidao.md`、`secret-fpv-pilot.md` 的 `## 关联实体` 段 SHALL 移至 `## 时间线` 之上，符合 §4.2 entity 模板（关联实体属编译真相区）。
 
 ### Requirement: log.md 时序与枚举修复
-log.md 现有条目 SHALL 重排为严格正序（17:27 lint 移到 17:35 ingest 之前；07:33 lint 移到 15:10 manual-edit 之前）；头部操作类型枚举补 `schema-update`；正文 `Schema-update` 统一为 `schema-update`。
+log.md 现有条目 SHALL 重排为严格正序（17:27 lint 移到 17:35 ingest 之前；07:33 lint 移到 15:10 manual-edit 之前）；头部操作类型枚举补 `schema-update` 与 `query-fileback`；正文 `Schema-update` 统一为小写 `schema-update`。
+
+**§11 合法性边界**：log.md 追加式不删改历史条目，但时序错乱属格式 bug（违反 §11「正序」强制规则），重排顺序（仅移动条目位置、不删改条目内容）属修复，不视为「修改历史」。重排后 MUST 在末尾追加一条 `schema-update` 说明「本次重排时序，原 17:27 lint 与 17:35 ingest 顺序颠倒、07:33 lint 与 15:10 manual-edit 顺序颠倒，已按时间正序重排，条目内容未改」。
 
 ## REMOVED Requirements
 无。本 spec 为增量优化，不移除任何现有需求。

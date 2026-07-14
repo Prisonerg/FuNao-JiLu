@@ -1,13 +1,13 @@
 # Tasks
 
-本 spec 覆盖 26 项优化（proposal 22 + 新发现 4）。任务按依赖与优先级排序，P0 → P1 → P2。每个任务标注「层面」「优先级」「依赖」。
+本 spec 覆盖 26 项优化（proposal 22 + 新发现 4），P2 全部基于网络检索交叉验证后自行补全，无阻塞项。任务按依赖与优先级排序，P0 → P1 → P2。每个任务标注「层面」「优先级」「依赖」。
 
 ## TG1 — P0 工具基线（lint 脚本修 bug，解锁正确数据）
 
 - [ ] Task 1: 修 lint 脚本入链重复计数 bug
   - 层面：工具 / P0 / 依赖：无
   - 改 `scripts/wiki-lint.sh` 第 107-115 行（孤岛检查）与第 244-260 行（反向链接矩阵）：用关联数组记录「源页→目标页」唯一对，同一源页多次指向同一目标只算 1 入链。
-  - 验证：重跑 lint，反向链接矩阵中 `llm-wiki` 入链数从 16 降为 4（唯一源页：andrej-karpathy、rag-vs-llm-wiki、second-brain、suda-llm-wiki-video）。
+  - 验证：重跑 lint，反向链接矩阵中入链数按唯一源页计数（无同页重复列出）；具体数字会随后续新页 ingest 而变，验证标准为「无重复」而非固定值。
 - [ ] Task 2: 修 lint 脚本 frontmatter 字段检查重复条件
   - 层面：工具 / P0 / 依赖：无
   - 改第 60 行 `if ! echo "$fm" | grep -q "^${field}:" && ! echo "$fm" | grep -q "^${field}:" ;`：删除重复的第二个条件，或补全为检测 `field:` 与 `field :` 两种 YAML 写法。
@@ -22,28 +22,30 @@
   - 层面：内容 / P0 / 依赖：无
   - 将 `wiki/andrej-karpathy.md`、`wiki/quanqiu-dou-zhidao.md`、`wiki/secret-fpv-pilot.md` 的 `## 关联实体` 段整体移动到 `## 时间线` 之前（参照 `wiki/zhao-laoshi-jianzhu-keji-yuan.md` 的正确顺序）。
   - 验证：3 页的 `## 关联实体` 均在 `## 时间线` 之上；重跑 lint 0 错误。
+  - 注意：andrej-karpathy.md 同时被 Task 29 修改（补时间线 5 条），Task 4 MUST 先于 Task 29 执行，避免合并冲突。
 
 ## TG3 — P0 核心机制（Query 回填）
 
 - [ ] Task 5: §9.2 补 Query 回填机制
   - 层面：Schema / P0 / 依赖：无
-  - 在 `AGENTS.md §9.2 Query` 增步骤 6「评估回填价值」：综合 3+ 页或产生新对比/连接/框架时，主动询问用户是否回填为 `summary`/`original` 页；用户同意后建页，frontmatter `sources` 列出综合时读取的 wiki 页（用 `[[xxx]]`）。
+  - 在 `AGENTS.md §9.2 Query` 增步骤 6「评估回填价值」：综合 3+ 页或产生新对比/连接/框架时，主动询问用户是否回填为 `summary`/`original` 页；用户同意后建页，frontmatter `sources` 列出综合时读取的 wiki 页（用 `[[xxx]]`）。同步 CLAUDE.md。
 - [ ] Task 6: §9.2 补 Query 多形态输出指引
   - 层面：Schema / P0 / 依赖：Task 5
-  - 在 `§9.2` 增输出形态选择指引：对比→表、趋势→图、汇报→Marp、关系网络→canvas。
+  - 在 `§9.2` 增输出形态选择指引：对比→表、趋势→图、汇报→Marp、关系网络→canvas。同步 CLAUDE.md。
 - [ ] Task 7: §11 操作类型新增 query-fileback
   - 层面：Schema / P0 / 依赖：Task 5
-  - 在 `AGENTS.md §11 log.md` 操作类型枚举新增 `query-fileback`（共 6 种：ingest/query/lint/manual-edit/schema-update/query-fileback）。
+  - 在 `AGENTS.md §11 log.md` 操作类型枚举新增 `query-fileback`（共 6 种：ingest/query/lint/manual-edit/schema-update/query-fileback）。同步 CLAUDE.md。
 - [ ] Task 8: query skill 补回填流程
   - 层面：工具 / P0 / 依赖：Task 5、Task 6
   - 在 `skills/llm-wiki-query/SKILL.md` 补步骤 6 回填流程 + 多形态输出指引（与 §9.2 一致）。
+  - 注意：Task 20（skill 瘦壳化重写）会重写此文件，MUST 纳入 Task 8 内容，避免重写覆盖。建议 Task 8 与 Task 20 合并执行，或 Task 20 在重写时显式保留 Task 8 的回填内容。
 
 ## TG4 — P1 lint 增强
 
 - [ ] Task 9: lint 补 6 项检查
-  - 层面：工具 / P1 / 依赖：TG1
-  - 在 `scripts/wiki-lint.sh` 新增 6 项检查：(1) 文件名 kebab-case 校验；(2) reliability 取值 ∈ {high,medium,low}；(3) 时间线日期格式 `YYYY-MM-DD`；(4) 时间线条目含 `§ 章节`；(5) index 快速入口入链数与 lint 反向链接矩阵一致；(6) 双区启发式（编译真相区不应出现 `^- YYYY-MM-DD` 列表项）。
-  - 验证：重跑 lint，新检查项对现有 20 页执行，报告当前缺 § 锚点的 15 页为警告。
+  - 层面：工具 / P1 / 依赖：TG1、Task 11（检查 5）、Task 16（检查 7）
+  - 在 `scripts/wiki-lint.sh` 新增 6 项检查：(1) 文件名 kebab-case 校验；(2) reliability 取值 ∈ {high,medium,low}；(3) 时间线日期格式 `YYYY-MM-DD`；(4) 时间线条目含 `§ 章节`（警告级别；首条 ingest 可豁免）；(5) index 快速入口入链数与 lint 反向链接矩阵一致；(6) 双区启发式（编译真相区不应出现 `^- YYYY-MM-DD` 列表项）。
+  - 验证：重跑 lint，新检查项对现有 20 页执行，报告当前缺 § 锚点的 15 页为警告（首条豁免）。
 - [ ] Task 10: lint 补 ingest 自检机器化验证
   - 层面：工具 / P1 / 依赖：TG1
   - 新增 2 项检查：(1) 从 log.md 取最近一次 ingest 声明触达的页，校验 updated=该次日期 + 时间线末条日期=该次日期；(2) 每个 raw 文件至少被一个 wiki 页 sources 引用（检测孤儿源）。
@@ -53,7 +55,7 @@
 - [ ] Task 11: 修 index.md 快速入口数据
   - 层面：内容 / P1 / 依赖：Task 1
   - 用修好的 lint 反向链接矩阵输出，重写 `wiki/index.md` 快速入口段：入链数按唯一源页计数；按降序排列；入链 <3 不列入。
-  - 验证：快速入口 `llm-wiki (4)`、`uhpc (5)` 等数字与 lint 输出一致；降序正确。
+  - 验证：快速入口数字与 lint 输出一致；降序正确。具体数字会随后续新页 ingest 而变，验证标准为「与 lint 输出一致」而非固定值。
 - [ ] Task 12: 补 15 页时间线 § 章节锚点
   - 层面：内容 / P1 / 依赖：无
   - 为 15 页首次 ingest 条目补 `§ 章节` 锚点：baby-cry-locate-itch、fpv-assembly-tools-infographic、fpv-assembly-tools、fpv-drone、llm-wiki、micrometer-usage-douyin-2026-06、micrometer、nuan-nuan-baby-cry-scratch-video、quanqiu-dou-zhidao、rag-vs-llm-wiki、secret-fpv-pilot、suda-llm-wiki-video、second-brain（1 条缺）、zhao-laoshi-jianzhu-keji-yuan（2 条缺）。
@@ -64,7 +66,7 @@
 - [ ] Task 14: 修 log.md 时序 + 操作类型枚举
   - 层面：内容 / P1 / 依赖：无
   - 重排 `wiki/log.md` 现有条目为严格正序：17:27 lint 移到 17:35 ingest 之前；07:33 lint 移到 15:10 manual-edit 之前。头部操作类型枚举补 `schema-update` 与 `query-fileback`。正文 `Schema-update` 统一为小写 `schema-update`。
-  - 注意：§11 规定 log 追加式不删改历史，但时序错乱属格式 bug，重排顺序（不删内容）属修复，需在末尾追加一条说明。
+  - 注意：§11 规定 log 追加式不删改历史，但时序错乱属格式 bug（违反 §11「正序」强制规则），重排顺序（仅移动条目位置、不删改条目内容）属修复。重排后 MUST 在末尾追加一条 `schema-update` 说明「本次重排时序，原 17:27 lint 与 17:35 ingest 顺序颠倒、07:33 lint 与 15:10 manual-edit 顺序颠倒，已按时间正序重排，条目内容未改」。
 
 ## TG6 — P1 Schema 修订（updated 语义 + MECE + 自检）
 
@@ -73,7 +75,7 @@
   - 在 `AGENTS.md §3` frontmatter 模板的 `updated` 字段说明中明确：「= 该页编译真相区最后一次重写的日期，NOT lint 触达日期、NOT index.md 刷新日期」。同步 CLAUDE.md。
 - [ ] Task 16: 核定 20 页 updated 字段
   - 层面：内容 / P1 / 依赖：Task 15
-  - 逐页核查编译真相区最后一次真实重写日期：14 页被 07-14 lint 误刷的，回退到真实编辑日；6 个建筑页保持 07-12（真实最后编辑日）。回退 updated 属元数据修正（非编译真相重写），但按 §8 审计原则，对每页被回退的页在时间线追加一条「修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 YYYY-MM-DD」条目（来源：本页 frontmatter 核定）。
+  - 逐页核查编译真相区最后一次真实重写日期（基于 log.md 的 ingest 记录推导：每个 ingest 重写编译真相 → updated = ingest 日期）：14 页被 07-14 lint 误刷的，回退到真实编辑日；6 个建筑页保持 07-12（真实最后编辑日）。回退 updated 属元数据修正（非编译真相重写），但按 §8 审计原则，对每页被回退的页在时间线追加一条「修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 YYYY-MM-DD」条目（来源：本页 frontmatter 核定）。
 - [ ] Task 17: §4.0 补 MECE 单源综述边界规则
   - 层面：Schema / P1 / 依赖：无
   - 在 `AGENTS.md §4.0` 增边界规则：单源综述形态（背景/论点/对比表/开放问题）→ summary；单源提炼笔记形态（核心要点/关键引文/延伸问题）→ source-note。区分靠正文结构而非源数量。同步 CLAUDE.md。
@@ -84,12 +86,13 @@
 ## TG7 — P1 自动化（Dataview + skill 瘦壳化）
 
 - [ ] Task 19: index.md Dataview 改造
-  - 层面：工具 / P1 / 依赖：Task 11
+  - 层面：工具 / P1 / 依赖：无（Dataview 改造的是「最近更新/标签索引/domain×type 分组」三段，与 Task 11 修快速入口无依赖）
   - 将 `wiki/index.md` 的「最近更新」「标签索引」「domain×type 分组」三段改为 Dataview 查询块（`` ```dataview ``），由 Obsidian 实时渲染。保留「快速入口」（手维护）与「主题 MOC」（手维护）。
   - 验证：在 Obsidian 中三段正确渲染；非 Obsidian 浏览可见原始查询代码（可接受）。
 - [ ] Task 20: 3 个 skill 瘦壳化
-  - 层面：工具 / P1 / 依赖：TG3、TG6
+  - 层面：工具 / P1 / 依赖：TG3（含 Task 8）、TG6
   - 重写 `skills/llm-wiki-{ingest,query,lint}/SKILL.md`：删除与 AGENTS.md 重复的通用规则（双区结构/矛盾处理/命名约定/交叉引用/引文格式），只留触发条件 + 权威依据章节引用 + 该操作特有的注意事项。
+  - 注意：query skill 重写时 MUST 纳入 Task 8 的回填流程 + 多形态输出内容，避免覆盖。
 
 ## TG8 — P2 Schema 增补
 
@@ -98,7 +101,7 @@
   - 在 `AGENTS.md §14` 增「git 工作流」小节：每次 ingest/lint 后建议 conventional commit（如 `feat(wiki): ingest xxx`），用户确认。同步 CLAUDE.md。
 - [ ] Task 22: §14 增规模化搜索阈值
   - 层面：Schema / P2 / 依赖：无
-  - 在 `§14` 增「规模化搜索阈值」小节：知识页 >100 且 Query 漏页时引入 qmd/BM25。同步 CLAUDE.md。
+  - 在 `§14` 增「规模化搜索阈值」小节：知识页 >100 且 Query 漏页时引入 qmd（`npm install -g @tobilu/qmd`，8 阶段混合检索：BM25+向量+LLM 重排，MCP server 支持）。同步 CLAUDE.md。
 - [ ] Task 23: §14 增 entity 主动检测策略
   - 层面：Schema / P2 / 依赖：无
   - 在 `§14`（或 §9.1 步骤 3 后）增「entity 主动检测」：高频出现的人/组织/产品无 entity 页时主动询问是否补建。同步 CLAUDE.md。
@@ -115,47 +118,60 @@
   - 层面：Schema / P2 / 依赖：Task 14
   - 将 log.md 条目格式优化为 `## [YYYY-MM-DD HH:MM] type | 简述`，迁移现有历史条目（保留内容，仅改格式）。同步 §11 说明。
 
-## TG10 — P2 阻塞项（依赖新源）
+## TG10 — P2 内容补全（基于网络检索交叉验证，无阻塞）
 
-- [ ] Task 27: 【阻塞：待重新 ingest】补 2 个 source-note 页
-  - 层面：内容 / P2 / 依赖：用户重新 ingest karpathy-llm-wiki-gist 与 uhpc-authoritative-standards
-  - 为 `raw/karpathy-llm-wiki-gist.md`、`raw/uhpc-authoritative-standards-2026-07.md` 各建一个 source-note 页（按 §4.5 模板），登记到 index.md。
-- [ ] Task 28: 【阻塞：待新源】补 2 位创作者 entity 页
-  - 层面：内容 / P2 / 依赖：用户提供「苏大讲AI」「暖暖小星球」更多背景信息
-  - 为 ai 域「苏大讲AI」、personal 域「暖暖小星球」各建 entity 页（按 §4.2 模板），登记到 index.md。
-- [ ] Task 29: 【阻塞：待传记源】修 andrej-karpathy.md 公众事实条目
-  - 层面：内容 / P2 / 依赖：用户 ingest Karpathy 传记类 raw
-  - 修 `wiki/andrej-karpathy.md` 时间线前 5 条（2015-2024）：补 raw/ 来源与完整 `YYYY-MM-DD` 日期，替换「（来源：公众已知事实）」。移除 callout。
+- [ ] Task 27: 补 2 个 source-note 页
+  - 层面：内容 / P2 / 依赖：Task 19（Dataview 自动渲染 domain×type 分组，避免手动登记）
+  - 基于 `raw/karpathy-llm-wiki-gist.md` 建 `wiki/karpathy-llm-wiki-gist-note.md`（source-note，ai 域，reliability: high）；基于 `raw/uhpc-authoritative-standards-2026-07.md` 建 `wiki/uhpc-authoritative-standards-note.md`（source-note，hobby 域，reliability: high）。
+  - 每页 MUST：frontmatter 含 title/type/domain/tags/sources/created/updated/reliability（created=updated=2026-07-14）；含 `## 时间线` 双区结构；正文至少 1 条 `[[wikilink]]`（前者链到 [[andrej-karpathy]]/[[llm-wiki]]，后者链到 [[uhpc]]/[[steel-fiber-concrete]]）。
+  - log.md 记录：每页建完后在 log.md 追加一条 `ingest` 条目（源文件写对应 raw，说明「补建 source-note 页，raw 已存在」）。
+  - 验证：lint 0 错误；两页出现在 index.md Dataview 渲染的 domain×type 分组。
+- [ ] Task 28: 补 2 位创作者 entity 页
+  - 层面：内容 / P2 / 依赖：Task 19
+  - 基于 `raw/suda-llm-wiki-douyin-2026-06.md` + 网络检索（未找到权威背景）建 `wiki/suda-ai-talk.md`（entity，ai 域，reliability: low，title: "苏大讲AI"）；基于 `raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md` + 网络检索（未找到权威背景）建 `wiki/nuan-nuan-planet.md`（entity，personal 域，reliability: low，title: "暖暖小星球"）。
+  - 命名理由：避免与已有 media 页 `suda-llm-wiki-video`/`nuan-nuan-baby-cry-scratch-video` 前缀重叠混淆；用账号主题词（「讲AI」「小星球」）作 kebab-case 英文文件名。
+  - 每页 MUST：frontmatter 含 title/type/domain/tags/sources/created/updated/reliability（created=updated=2026-07-14）；含 `## 时间线` 双区结构；`## 关联实体` 段在 `## 时间线` 之上（避免重蹈 Task 4 修复的覆辙）；正文至少 1 条 `[[wikilink]]`（前者链到 [[suda-llm-wiki-video]]/[[llm-wiki]]，后者链到 [[nuan-nuan-baby-cry-scratch-video]]/[[baby-cry-locate-itch]]）；编译真相区含 callout 标注「网络检索未找到权威背景，待后续 ingest 权威源升级」；时间线首条标注来源为「raw/xxx.md + 网络检索」。
+  - log.md 记录：每页建完后在 log.md 追加一条 `ingest` 条目（源文件写对应 raw，说明「补建 entity 页，raw 已存在；网络检索未找到权威背景，reliability: low」）。
+  - 验证：lint 0 错误；两页出现在 index.md Dataview 渲染的 domain×type 分组。
+- [ ] Task 29: 修 andrej-karpathy.md 5 条公众事实（含新建 raw）
+  - 层面：内容 / P2 / 依赖：Task 4（双区结构先修）、Task 16（updated 核定先做）
+  - 步骤 1：WebSearch 多源检索 Karpathy 传记信息（出生 1986-10-23 Bratislava；BSc Toronto 2005-2009；MSc UBC 2009-2011；PhD Stanford 2011-2015 under Fei-Fei Li；OpenAI 创始成员 2015-2017；Tesla Director of AI 2017-2022；二进 OpenAI 2023-2024；Eureka Labs 2024；2026-05-19 加入 Anthropic）。
+  - 步骤 2：整理为 raw 格式落盘 `raw/karpathy-biography-web-2026-07.md`，文件头标注「本文件由 LLM 经 WebSearch 多源检索整理落盘，用户授权」+ 列出所有来源 URLs（karpathy.ai、aiwiki.ai、baike.com、yespress.io、Stanford page）。
+  - 步骤 3：走标准 ingest 流程，补全 `wiki/andrej-karpathy.md` 时间线前 5 条（2015-2024）：替换「（来源：公众已知事实）」为带 raw 引用的完整 `YYYY-MM-DD` 日期条目（来源：raw/karpathy-biography-web-2026-07.md § 章节）；frontmatter sources 加新 raw 文件；移除 callout；刷新 updated=2026-07-14。
+  - 步骤 4：执行 §9.1 ingest 自检 9 项（含 Task 18 新增第 9 项：raw 本身已有对应 source-note 页——本 raw 是传记源，对应 andrej-karpathy entity 页，不强制建 source-note，但可考虑建 `wiki/karpathy-biography-web-note.md`；若不建，在自检中标注「raw 为传记补充源，整合进 entity 页，无需独立 source-note」）。
+  - 步骤 5：log.md 追加一条 `ingest` 条目（源文件：raw/karpathy-biography-web-2026-07.md，触达：wiki/andrej-karpathy.md，说明「补全 5 条公众事实时间线，移除 callout」）。
+  - 验证：lint 0 错误；时间线前 5 条含完整日期与 raw/ 来源；callout 已移除。
 
 ## TG11 — 收尾
 
 - [ ] Task 30: 全量验证 + log.md 记录
-  - 层面：流程 / 依赖：所有非阻塞任务完成
+  - 层面：流程 / 依赖：所有 26 项任务完成（P2 全不阻塞）
   - 重跑 lint 确保 0 错误；AGENTS.md 与 CLAUDE.md diff 一致；在 log.md 追加一条 `schema-update` 记录本次全量优化。
 
 # Task Dependencies
 
 - Task 1/2/3（TG1 lint 修 bug）无依赖，可并行。
-- Task 4（双区结构）无依赖，可与 TG1 并行。
+- Task 4（双区结构）无依赖，可与 TG1 并行；但 MUST 先于 Task 29（同文件改）。
 - Task 5/6/7（Query 回填 Schema）顺序依赖：6 依赖 5，7 依赖 5。
-- Task 8（query skill）依赖 5、6。
-- Task 9/10（lint 增强）依赖 TG1（在修好的脚本上加检查）。
+- Task 8（query skill）依赖 5、6；Task 20 重写时 MUST 纳入 Task 8 内容。
+- Task 9/10（lint 增强）依赖 TG1；Task 9 检查 5 额外依赖 Task 11，检查 7 额外依赖 Task 16。
 - Task 11（index 快速入口）依赖 Task 1（需正确入链数据）。
 - Task 12/13/14（内容修复）无相互依赖，可并行。
-- Task 15（updated 语义）无依赖；Task 16（核定）依赖 15。
+- Task 15（updated 语义）无依赖；Task 16（核定）依赖 15；Task 9 检查 7 依赖 16。
 - Task 17/18（Schema）无依赖，可并行。
-- Task 19（Dataview）依赖 Task 11（快速入口先修好）。
-- Task 20（skill 瘦壳化）依赖 TG3、TG6（Schema 改完再瘦壳）。
+- Task 19（Dataview）无依赖（与 Task 11 修快速入口无依赖）。
+- Task 20（skill 瘦壳化）依赖 TG3（含 Task 8）、TG6。
 - Task 21/22/23（§14 增补）无依赖，可并行。
-- Task 24/25/26（P2 工具）依赖 TG4。
-- Task 27/28/29（阻塞项）依赖外部新源，不阻塞其他任务。
-- Task 30（收尾）依赖所有非阻塞任务完成。
+- Task 24/25/26（P2 工具）依赖 TG4；Task 26 额外依赖 Task 14。
+- Task 27/28（新页）依赖 Task 19（Dataview 自动渲染，避免手动登记）。
+- Task 29（修 andrej-karpathy）依赖 Task 4（双区结构先修）、Task 16（updated 核定先做）。
+- Task 30（收尾）依赖所有 26 项任务完成。
 
 ## 可并行批次建议
 
 - 批次 A（P0 并行）：Task 1+2+3 + Task 4 + Task 5
-- 批次 B（P0/P1 并行）：Task 6+7+8 + Task 12+13+14 + Task 15+17+18
-- 批次 C（P1 串行）：Task 9+10 → Task 11 → Task 19 → Task 20 → Task 16
+- 批次 B（P0/P1 并行）：Task 6+7+8 + Task 12+13+14 + Task 15+17+18 + Task 19
+- 批次 C（P1 串行）：Task 9+10（部分检查需等 Task 11/16）→ Task 11 → Task 16 → Task 9（补检查 5/7）→ Task 20
 - 批次 D（P2 并行）：Task 21+22+23 + Task 24+25+26
-- 批次 E（阻塞）：Task 27+28+29（待新源）
-- 批次 F：Task 30
+- 批次 E（P2 并行，依赖批次 B 的 Task 19）：Task 27+28 + Task 29（依赖批次 A 的 Task 4 与批次 C 的 Task 16）
+- 批次 F：Task 30（依赖全部完成）
