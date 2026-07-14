@@ -5,6 +5,7 @@ domain: hobby
 tags: [douyin, content-creator, 建筑, 工程材料, UHPC, concrete, 技术分享]
 sources:
   - raw/uhpc-steel-fiber-repair-douyin-2026-07.md
+  - raw/uhpc-authoritative-standards-2026-07.md
 created: 2026-07-12
 updated: 2026-07-12
 reliability: medium
@@ -44,6 +45,8 @@ reliability: medium
   （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
 - 2026-07-12 | 本 wiki ingest 该视频
   （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+- 2026-07-12 18:20 | 补充权威源交叉验证：sources 加 raw/uhpc-authoritative-standards-2026-07.md。视频所述 28 天 100 MPa 经 GB/T 31387-2025 征求意见稿核实达 UC100 起步等级，数据基本可信
+  （来源：raw/uhpc-authoritative-standards-2026-07.md § 六）
 
 > [!note] 待补充
 > 目前仅 ingest 了一条视频，对该创作者的了解有限。后续若 ingest 更多他的作品，可补充：账号主页 URL、粉丝/获赞数据、内容更新频率、常覆盖主题（是否仅 UHPC，还是覆盖更多建筑材料）、机构背景核实（是否为真实研究院、作者资质）等。
