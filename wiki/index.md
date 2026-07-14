@@ -21,7 +21,7 @@
 - [[uhpc-steel-fiber-repair-douyin-2026-07]] (8) — UHPC 钢纤维修补配比视频笔记
 - [[compressive-strength]] (8) — 抗压强度，混凝土核心力学性能
 - [[second-brain]] (7) — 第二大脑，PKM 概念，LLM Wiki 本土化框架
-- [[rag-vs-llm-wiki]] (7) — RAG vs LLM Wiki 系统对比
+- [[rag-vs-llm-wiki]] (9) — RAG vs LLM Wiki 系统对比
 - [[suda-llm-wiki-video]] (7) — 苏大讲AI LLM Wiki 学习潮视频笔记
 
 ## 最近更新（倒序）

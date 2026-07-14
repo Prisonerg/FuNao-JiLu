@@ -6,7 +6,7 @@ tags: [micrometer, 千分尺, douyin, 科普, science-popularization, 原理动�
 sources:
   - raw/micrometer-usage-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 reliability: medium
 ---
 

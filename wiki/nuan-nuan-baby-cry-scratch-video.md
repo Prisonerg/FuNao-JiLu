@@ -7,7 +7,7 @@ sources:
   - raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md
 reliability: low
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 ---
 
 # 暖暖小星球：宝宝哭闹就全身挠一遍
