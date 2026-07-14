@@ -6,7 +6,7 @@ tags: [llm-wiki, karpathy, second-brain, obsidian, claude, douyin, chinese-commu
 sources:
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 reliability: low
 ---
 

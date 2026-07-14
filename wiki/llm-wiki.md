@@ -7,7 +7,7 @@ sources:
   - raw/karpathy-llm-wiki-gist.md
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 reliability: medium
 ---
 
@@ -15,7 +15,7 @@ reliability: medium
 
 ## 定义
 
-LLM Wiki 是一种个人知识管理模式：让 LLM 增量地把原始资料「编译」成一个持久、可复利、互相链接的 Markdown wiki，知识「编译一次、持续保持最新」，从而区别于每次提问都从原始文档重新检索的 RAG（来源：raw/karpathy-llm-wiki-gist.md § The core idea）。该模式由 [[andrej-karpathy|Andrej Karpathy]] 提出，本页核心原始源为其发布的 LLM Wiki gist，另见 [[suda-llm-wiki-video|中文社区反响源]]。
+LLM Wiki 是一种个人知识管理模式：让 LLM 增量地把原始资料「编译」成一个持久、可复利、互相链接的 Markdown wiki，知识「编译一次、持续保持最新」，从而区别于每次提问都从原始文档重新检索的 [[rag-vs-llm-wiki|RAG]]（来源：raw/karpathy-llm-wiki-gist.md § The core idea）。该模式由 [[andrej-karpathy|Andrej Karpathy]] 提出，本页核心原始源为其发布的 LLM Wiki gist，另见 [[suda-llm-wiki-video|中文社区反响源]]。
 
 ## 核心思想
 
@@ -25,7 +25,7 @@ LLM Wiki 建立在三层数据结构之上（来源：raw/karpathy-llm-wiki-gist
 - **The wiki（LLM 维护的 Markdown wiki）**：LLM 生成的 markdown 文件目录，含摘要页、实体页、概念页、对比页、综述页等。这一层完全由 LLM 拥有：它创建页面、在新源到来时更新、维护交叉引用、保持一致性。人读它，LLM 写它。
 - **The schema（规范文件）**：一份文档（如 Claude Code 的 CLAUDE.md、Codex / Trae 的 AGENTS.md），告诉 LLM wiki 的结构、命名约定，以及 ingest / query / lint 三大工作流。它使 LLM 成为「有纪律的 wiki 维护者」而非通用聊天机器人，由人与 LLM 协同演化。
 
-与 RAG 的本质区别在于知识的存在形态（来源：raw/karpathy-llm-wiki-gist.md § The core idea）：
+与 [[rag-vs-llm-wiki|RAG]] 的本质区别在于知识的存在形态（来源：raw/karpathy-llm-wiki-gist.md § The core idea）：
 
 > Most people's experience with LLMs and documents looks like RAG: you upload a collection of files, the LLM retrieves relevant chunks at query time, and generates an answer. This works, but the LLM is rediscovering knowledge from scratch on every question. There's no accumulation.
 > （来源：raw/karpathy-llm-wiki-gist.md § The core idea）

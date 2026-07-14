@@ -6,7 +6,7 @@ tags: [rag, llm-wiki, comparison, knowledge-management]
 sources:
   - raw/karpathy-llm-wiki-gist.md
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 reliability: high
 ---
 

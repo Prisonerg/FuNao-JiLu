@@ -6,7 +6,7 @@ tags: [micrometer, 千分尺, precision-measurement, metrology, measuring-tool, 
 sources:
   - raw/micrometer-usage-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 reliability: medium
 ---
 
