@@ -5,6 +5,7 @@ domain: hobby
 tags: [uhpc, steel-fiber, concrete-repair, 抖音, 建筑, 工程材料, 配比, 机场道面, compressive-strength]
 sources:
   - raw/uhpc-steel-fiber-repair-douyin-2026-07.md
+  - raw/uhpc-authoritative-standards-2026-07.md
 created: 2026-07-12
 updated: 2026-07-12
 reliability: medium
@@ -48,6 +49,7 @@ reliability: medium
 - **「聚合物」组分未展开**：视频称「UHPC钢纤维**聚合物**修补料」，但配方列表中未见明确的聚合物组分（如乳液、可再分散乳胶粉等），可能归入「专用外加剂」一栏，待核实。
 - **互动数据缺失**：未抓取点赞/评论/收藏等互动数据，无法判断该视频在建筑技术圈的实际影响力。
 - **作者机构属性待核实**：账号名含「建筑科技研究院」，疑似带机构背景，但具体是哪所研究院、作者「赵老师」的真实身份与资质未抓取，待后续 ingest 其更多作品或主页信息补全。
+- **交叉验证结论（2026-07-12 18:20 补充）**：经 GB/T 31387-2025 征求意见稿、CECS 38、GB 50367、CJJ/T 239-2016 等权威源交叉验证，视频所述数据基本可信——28 天 100 MPa 达 UHPC 起步等级 UC100（≥100 MPa）；2h 39.2 MPa、1d 43.3 MPa 符合 UHPC 早强特性；视频使用 42.5 水泥偏低（UHPC 常用 52.5+），但最终达 100 MPa 说明配合比设计（低水胶比、级配优化、钢纤维增强）比水泥标号更重要（来源：raw/uhpc-authoritative-standards-2026-07.md § 六）。仍未解决的缺口：配比具体数值（水胶比、钢纤维体积率、外加剂掺量）、试件尺寸与加载速率、「聚合物」组分定义、作者机构背景、粘结强度与长期耐久性数据。
 
 ## 关联页
 
@@ -61,3 +63,5 @@ reliability: medium
 
 - 2026-07-12 17:35 | 首次 ingest 自 raw/uhpc-steel-fiber-repair-douyin-2026-07.md
   （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+- 2026-07-12 18:20 | 补充权威源交叉验证：sources 加 raw/uhpc-authoritative-standards-2026-07.md。视频所述 28 天 100 MPa 经 GB/T 31387-2025 征求意见稿核实达 UC100 起步等级；2h 39.2 MPa、1d 43.3 MPa 符合 UHPC 早强特性；42.5 水泥偏低但达 100 MPa 说明配合比设计比水泥标号更重要。延伸问题新增「交叉验证结论」条目
+  （来源：raw/uhpc-authoritative-standards-2026-07.md § 六）
