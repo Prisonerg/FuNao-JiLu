@@ -76,3 +76,8 @@
   2. **ingest 慢**：新增两种触发方式：(1) URL 直接 ingest — 用户给 URL，LLM 自动抓取 → 落盘 raw/ → ingest wiki，用户无需手动操作 raw/；(2) dry-run 预览 — 改动任何页面前先告诉你触达哪些页面，确认后再执行，超过 15 页主动建议分批。
   3. **lint 看不懂**：lint 脚本每项检查加中文注释说明（检查什么、报错/警告意味着什么、是否需要修）；README.md 新增「怎么读 lint 报告」表格，8 项检查逐项说明+操作指引。
   三次优化后，lint 仍 0 错误 0 警告通过；AGENTS.md 与 CLAUDE.md 内容逐字一致；raw/ 未碰任何文件；符合所有规则。
+### 2026-07-14 15:10 - manual-edit
+
+- **源文件**：—（无新原始源；本次为 skill 定义文件生成）
+- **触达的 wiki 文件**：skills/llm-wiki-ingest/SKILL.md（新建）, skills/llm-wiki-query/SKILL.md（新建）, skills/llm-wiki-lint/SKILL.md（新建）, wiki/log.md
+- **说明**：根据当前 GBrain-core Schema（AGENTS.md §9）重新生成三大操作 skill 定义文件。用户指令「根据仓库重新生成相应的 skills」，经澄清范围为「更新三大操作 skill」（ingest/query/lint），不含领域专属 skill（§13 original 主动捕获已合并进 ingest skill）。三个 SKILL.md 均采用标准 skill 格式（YAML frontmatter 含 name/description + Markdown 正文），内容分别展开自 AGENTS.md §9.1（ingest 8 步工作流 + §4.0 type 判定 + §4.1 双区结构 + §8 矛盾处理 + 8 项自检 checklist + §13 original 主动捕获）、§9.2（query 5 步工作流 + 全量关键词扫描 + 缺口暴露）、§9.3+§14（lint 机器化 8 项检查 + LLM 补充 4 项语义检查 + 修复 + Schedule 自动触发）。每个 skill 均标注「权威依据：AGENTS.md，遇到未尽事宜以 AGENTS.md 为准」。skill 文件存放在仓库内 skills/ 目录（非 wiki/ 下，因 skills 是工具定义而非知识页），可复制到 Trae 系统 skills 目录（如 /root/.agents/skills/）供 Skill 工具加载。矛盾检查：本次为工具文件生成，不涉及知识页内容变更，无新旧结论冲突。
