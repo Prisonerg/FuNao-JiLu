@@ -32,16 +32,16 @@
 - **3 个 skill 瘦壳化**：删除与 AGENTS.md 重复的通用规则，只留触发条件 + 章节引用 + 操作特有事项。
 - **Query 多形态输出指引**：§9.2 增按问题类型选输出形态（对比→表/趋势→图/汇报→Marp/关系→canvas）。
 
-### P2（锦上添花，依赖项标「阻塞」）
+### P2（锦上添花，基于网络检索交叉验证后自行补全）
 - **§14 增 git 工作流小节**：每次 ingest/lint 后建议 conventional commit。
-- **§14 增规模化搜索阈值**：>100 页且 Query 漏页时引入 qmd/BM25。
+- **§14 增规模化搜索阈值**：>100 页且 Query 漏页时引入 qmd（8 阶段混合检索：BM25+向量+LLM 重排，MCP server 支持）。
 - **§14 增 entity 主动检测策略**：ingest 步骤 3 后高频实体无 entity 页时主动询问。
 - **log.md 与 lint 报告分离**：log 只记摘要，详细报告写 `reports/`。
 - **lint 脚本增 `--json` 输出**。
 - **log.md 格式 grep 优化**：`## [YYYY-MM-DD HH:MM] type | 简述`（迁移历史条目）。
-- **【阻塞：待新源】** 补 2 个 source-note 页（karpathy-llm-wiki-gist、uhpc-authoritative-standards）。
-- **【阻塞：待新源】** 补 2 位创作者 entity 页（苏大讲AI、暖暖小星球）。
-- **【阻塞：待传记源】** 修 andrej-karpathy.md 5 条公众事实时间线条目格式。
+- **补 2 个 source-note 页**：基于已有 raw 文件（`raw/karpathy-llm-wiki-gist.md`、`raw/uhpc-authoritative-standards-2026-07.md`）自行整理建页，无需等待用户重新 ingest。
+- **补 2 位创作者 entity 页**（苏大讲AI、暖暖小星球）：基于网络检索结果 + 已有 raw 元信息建页，`reliability: low`，明确标注「网络检索未找到权威背景，待后续 ingest 权威源升级」。
+- **修 andrej-karpathy.md 5 条公众事实**：基于网络检索的 Karpathy 传记信息（出生 1986-10-23 Bratislava；BSc Toronto 2009；MSc UBC 2011；PhD Stanford 2011-2015 under Fei-Fei Li；OpenAI 创始成员 2015-2017；Tesla Director of AI 2017-2022；二进 OpenAI 2023-2024；Eureka Labs 2024；2026 加入 Anthropic），新建 `raw/karpathy-biography-web-2026-07.md` 落盘后补全 5 条时间线条目，移除 callout。
 
 ### 非变更（明确不做）
 - 不改三层架构、双区结构、6 种 type MECE、扁平 + frontmatter、raw 只读、3 domain 分层、original 主动捕获、AGENTS/CLAUDE 双写同步。
