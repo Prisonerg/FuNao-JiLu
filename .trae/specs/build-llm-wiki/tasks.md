@@ -20,7 +20,7 @@
   - [x] SubTask 4.5: 2 页 entity 时间线表格→列表
   - [x] SubTask 4.6: 13 页加 reliability 字段
   - [x] SubTask 4.7: 修复 2 处失效交叉引用
-- [x] Task 5: 重写 index.md（顶部 4 主题 MOC + 下方 3 domain × 6 type 分组）
+- [x] Task 5: 重写 index.md（五区块：快速入口+最近更新+主题 MOC+标签索引+domain×type 分组）
 - [x] Task 6: 追加 log.md schema-update 记录
 - [x] Task 7: 创建 Trae Schedule「每周 Wiki Lint 体检」（每周一 09:00 Beijing time）
 - [x] Task 8: 更新 README.md 为 GBrain-core 模式说明

@@ -6,13 +6,13 @@
 Garry Tan 的 [gbrain](https://github.com/garrytan/gbrain) 仓库（14.7 万页生产级部署）提供了系统化解法：Compiled Truth + Timeline 双区结构、Originals 文件夹、Brain-Agent Loop、机器化 doctor/sync 维护。本次重构以 GBrain 的「知识编译 + 双区结构 + 机器化维护」为核心引擎，融合本仓库原有优点（raw/ 不可变层、扁平 + frontmatter 结构、domain 三域隐私分层），升级为「GBrain-core 模式」，为规模化到 50-100 页打地基。
 
 ## What Changes
-- **AGENTS.md 全量重写**：从「Karpathy LLM Wiki Schema」升级为「GBrain-core Wiki Schema」（14 节）。新增：§4.0 type 判定测试（MECE 决策树）、§4.1 双区结构（`## 时间线` 分界，上重写/下追加）、§4.6 media 模板、§4.7 original 模板、§8 矛盾处理双区版、§9.1 ingest 强制自检 checklist（8 项）、§9.2 query 前置全量关键词扫描、§9.3 lint 机器化（8 项检查）、§10.1 主题 MOC、§13 对话中 original 主动捕获、§14 机器化维护。
+- **AGENTS.md 全量重写**：从「Karpathy LLM Wiki Schema」升级为「GBrain-core Wiki Schema」（14 节）。新增：§4.0 type 判定测试（MECE 决策树）、§4.1 双区结构（`## 时间线` 分界，上重写/下追加）、§4.6 media 模板、§4.7 original 模板、§8 矛盾处理双区版、§9.1 ingest 强制自检 checklist（8 项）+ URL 直接 ingest + dry-run 预览、§9.2 query 前置全量关键词扫描、§9.3 lint 机器化（8 项检查）、§10 index.md 五区块结构（快速入口+最近更新+主题 MOC+标签索引+domain×type 分组）、§13 对话中 original 主动捕获、§14 机器化维护。
 - **type 从 4 种扩为 6 种**：`entity` / `concept` / `summary` / `source-note` / `original` / `media`。media 与 source-note 按资料形态分流（媒体作品 → media；文字资料 → source-note）。
 - **frontmatter 加可选字段 `reliability`**：high/medium/low，低可信源结论标注「待权威源验证」。
 - **CLAUDE.md 同步**：与 AGENTS.md 逐字一致。
 - **scripts/wiki-lint.sh 新建**：纯 bash/grep 机器化体检脚本，8 项检查 + 反向链接矩阵，无外部依赖。
 - **13 个 wiki 页全量迁移**：所有页加 `## 时间线` 双区结构；4 个 source-note（媒体作品类）转 media 类型（章节「来源元信息」→「作品元信息」）；2 个 entity 时间线从表格改为新列表格式；所有页 frontmatter 加 reliability；修复 2 处失效交叉引用。
-- **index.md 重写**：顶部加主题 MOC（4 个主题），下方 domain × type 分组扩为 6 种 type（预留 original/media 槽位）。
+- **index.md 重写**：顶部加快速入口（按入链排序）+ 最近更新（倒序）+ 主题 MOC（4 个主题）+ 标签索引 + 下方 domain × type 分组（6 种 type）。
 - **log.md 追加**：schema-update 记录，含完整变更说明。
 - **Trae Schedule 创建**：每周一 09:00（Beijing time）自动触发 lint，报告写进 log.md。
 
@@ -109,17 +109,29 @@ schema 文件 SHALL 用中文撰写，并包含以下 14 个章节：
 7. 引文格式（timeline source 增强为 `raw/xxx.md § 章节` 精确引用）
 8. 矛盾处理规则（双区版：时间线追加修正 + 编译真相重写）
 9. 三大操作工作流（ingest 含自检 checklist、query 含全量扫描、lint 机器化）
-10. index.md 维护规则（主题 MOC + domain × type 分组）
+10. index.md 维护规则（五区块：快速入口+最近更新+主题 MOC+标签索引+domain×type 分组）
 11. log.md 维护规则（追加式，操作类型含 schema-update）
 12. 领域适配（ai / personal / hobby 三域）
 13. 对话中 original 主动捕获
 14. 机器化维护（lint 脚本 + Trae Schedule）
 
-### Requirement: index.md 双视图
-index.md SHALL 包含两个视图：顶部主题 MOC + 下方 domain × type 分组。
+### Requirement: index.md 五区块结构
+index.md SHALL 包含五个区块（按从上到下顺序）：快速入口 → 最近更新 → 主题 MOC → 标签索引 → domain × type 分组。
+
+#### Scenario: 快速入口按入链排序
+- **WHEN** 用户打开 index.md
+- **THEN** 顶部能看到「快速入口（核心枢纽页）」，列出入链数最高的 wiki 页，按入链数降序排列，入链数 < 3 不列入。
+
+#### Scenario: 最近更新倒序
+- **WHEN** 用户完成一次 ingest
+- **THEN** LLM 在「最近更新」列表顶部插入一条新记录（日期 + 页面列表 + 简述），保持最多 10 条，超出时删除最旧。
+
+#### Scenario: 标签索引按 tags 聚合
+- **WHEN** 完成一次 ingest
+- **THEN** LLM 检查新增/更新页的 tags，如有新标签出现或已有标签的页面集合变化，更新标签索引表格。同义标签可合并在一行。只列出跨页面的标签。
 
 #### Scenario: 主题 MOC 聚合跨 type 相关页
-- **WHEN** 用户浏览 index.md 顶部
+- **WHEN** 用户浏览 index.md 主题 MOC 区域
 - **THEN** 能看到按主题（如「FPV / 穿越机」「知识管理」）聚合的相关页 `[[wikilink]]`
 
 ### Requirement: 根 README.md

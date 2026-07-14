@@ -13,22 +13,27 @@
 - [x] §9.1 ingest 含 8 项强制自检 checklist
 - [x] §9.2 query 含前置全量关键词扫描（不依赖 index 登记）
 - [x] §9.3 lint 含 8 项机器化检查 + 4 项 LLM 补充检查
-- [x] §10 index.md 含主题 MOC（§10.1）+ domain × type 分组（§10.2，6 种 type）
+- [x] §10 index.md 含五区块结构（快速入口 §10.1 + 最近更新 §10.2 + 主题 MOC §10.3 + 标签索引 §10.4 + domain × type 分组 §10.5，6 种 type）
 - [x] §11 log.md 操作类型含 schema-update
 - [x] §12 领域适配三域（ai / personal / hobby），各域偏好 type 含 original/media
 - [x] §13 对话中 original 主动捕获规则（识别后询问，同意才建页）
 - [x] §14 机器化维护（§14.1 lint 脚本 + §14.2 Trae Schedule）
 - [x] scripts/wiki-lint.sh 新建，8 项检查 + 反向链接矩阵，纯 bash/grep 无依赖
-- [x] scripts/wiki-lint.sh 首次运行 0 错误 0 警告通过
+- [x] scripts/wiki-lint.sh 首次运行 0 错误 0 警告通过（当前 20 页）
 - [x] 13 个 wiki 页全量迁移：所有页加 `## 时间线` 双区结构
 - [x] 4 个 source-note（媒体作品类）转 media 类型（suda-llm-wiki-video / nuan-nuan-baby-cry-scratch-video / fpv-assembly-tools-infographic / micrometer-usage-douyin-2026-06）
 - [x] 章节标题「来源元信息」→「作品元信息」（4 页 media）
 - [x] 2 个 entity 时间线从表格改为新列表格式（secret-fpv-pilot / quanqiu-dou-zhidao）
 - [x] 13 页 frontmatter 加 reliability 字段
 - [x] 2 处失效交叉引用已修复（llm-wiki.md 与 secret-fpv-pilot.md 的 § 来源元信息 → § 作品元信息）
-- [x] index.md 重写：顶部 4 主题 MOC + 下方 3 domain × 6 type 分组（预留 original/media 槽位）
+- [x] index.md 重写：五区块（快速入口+最近更新+主题 MOC+标签索引+domain×type 分组）
 - [x] log.md 追加 schema-update 记录（含完整变更说明）
 - [x] Trae Schedule「每周 Wiki Lint 体检」已创建（每周一 09:00 Beijing time）
-- [x] 最终 lint：14 页，0 错误，0 警告，0 孤岛页，0 悬空引用
+- [x] 最终 lint：20 页，0 错误，0 警告，0 孤岛页，0 悬空引用
 - [x] 未修改任何 raw/ 下文件
 - [x] README.md 更新为 GBrain-core 模式说明
+- [x] §9.1 ingest 新增 URL 直接 ingest + dry-run 预览（2026-07-14 schema-update）
+- [x] scripts/wiki-lint.sh 8 项检查加中文注释说明（2026-07-14 schema-update）
+- [x] README.md 新增「怎么读 lint 报告」表格（2026-07-14 schema-update）
+- [x] 最终 lint：20 页，0 错误，0 警告，0 孤岛页，0 悬空引用（2026-07-14 验证通过）
+- [x] log.md 追加 2026-07-14 schema-update 记录
