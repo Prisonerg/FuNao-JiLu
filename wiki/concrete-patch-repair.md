@@ -82,6 +82,6 @@ CECS 38 规程还专门规定了钢纤维混凝土在公路路面、机场道面
 ## 时间线
 
 - 2026-07-12 17:35 | 首次 ingest 自 raw/uhpc-steel-fiber-repair-douyin-2026-07.md，建立混凝土修补概念页（性能要求、分层策略、工艺流程、应用场景）
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 全文）
 - 2026-07-12 18:20 | 补充权威源数据：整合 GB 50367 粘结强度要求（碳纤维正拉 ≥2.5 MPa、粘钢抗剪 ≥5.0 MPa）、CJJ/T 239-2016 附录 E 粘结强度测试方法（试件 70×70×40mm、加载 3mm/min）、典型粘结材料强度（环氧 15-25 MPa、混凝土抗拉 2-4 MPa）。修正：原编译真相「粘结强度数据缺失」未给量化标准，现补充 GB 50367 强制要求作为参考基准
   （来源：raw/uhpc-authoritative-standards-2026-07.md § 四）

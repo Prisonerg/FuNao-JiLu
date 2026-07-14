@@ -38,6 +38,7 @@ Andrej Karpathy 是 AI 研究者与 AI 教育者，OpenAI 联合创始成员之�
 ## 关联实体
 
 - [[llm-wiki]] —— Karpathy 提出的持久化知识编译模式；其 gist 是本 wiki 的首个原始源。
+- [[karpathy-llm-wiki-gist-note]] —— LLM Wiki gist 的单源笔记页，逐条提炼 gist 核心要点与引文。
 - [[rag-vs-llm-wiki]] —— 对 LLM Wiki 与 RAG 的系统对比，论点源自 Karpathy 的 gist。
 - [[second-brain]] —— 中文社区对 LLM Wiki 的本土化框架表述；2026-06 抖音科普视频把两者直接绑定。
 - [[suda-llm-wiki-video]] —— 2026-06 抖音科普视频笔记，记录中文社区对 LLM Wiki 的反响。

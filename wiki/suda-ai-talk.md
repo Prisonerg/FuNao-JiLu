@@ -47,7 +47,7 @@ reliability: low
 - 2026-07-12 | 本 wiki 首次 ingest 该视频，建 [[suda-llm-wiki-video]] media 页与 [[second-brain]] 概念页，但未为创作者本身建 entity 页
   （来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息）
 - 2026-07-14 | 补建创作者 entity 页。WebSearch 检索「苏大讲AI 抖音」未找到权威背景（百科/官方简介/机构归属均无），reliability 维持 low，编译真相区加 callout 标注待权威源升级
-  （来源：raw/suda-llm-wiki-douyin-2026-06.md + 网络检索）
+  （来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息 + 网络检索）
 
 > [!note] 待补充
 > 目前仅 ingest 了一条视频，对该创作者的了解有限。后续若 ingest 更多他的作品或获得权威背景源，可补充：真实身份/资质、内容更新频率、常覆盖主题（是否仅 LLM Wiki，还是覆盖更多 AI 话题）、是否带机构属性、账号主页公开简介等。

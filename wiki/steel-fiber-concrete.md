@@ -86,6 +86,6 @@ reliability: high
 ## 时间线
 
 - 2026-07-12 17:35 | 首次 ingest 自 raw/uhpc-steel-fiber-repair-douyin-2026-07.md，建立钢纤维混凝土概念页（阻裂机制、增韧效果、与 UHPC 关系）
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 全文）
 - 2026-07-12 18:20 | 补充权威源数据：整合 CECS 38 规程版本演变（92/2004/2020）、钢纤维体积率取值表（0.5-2.0%，按结构类别）、几何参数表（长度 20-50mm、长径比 40-100）、粗骨料粒径要求。修正：原编译真相未给出具体体积率数值，现补充 CECS 38 表 2.2.2 与 UHPC 典型 2%-3% 的对比
   （来源：raw/uhpc-authoritative-standards-2026-07.md § 三）

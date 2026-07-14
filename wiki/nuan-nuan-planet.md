@@ -45,7 +45,7 @@ reliability: low
 - 2026-07-12 | 本 wiki 首次 ingest 该视频，建 [[nuan-nuan-baby-cry-scratch-video]] media 页与 [[baby-cry-locate-itch]] 概念页，但未为创作者本身建 entity 页
   （来源：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md § 视频元信息）
 - 2026-07-14 | 补建创作者 entity 页。WebSearch 检索「暖暖小星球 抖音」未找到权威背景（百科/官方简介/专业资质均无），reliability 维持 low，编译真相区加 callout 标注待权威源升级
-  （来源：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md + 网络检索）
+  （来源：raw/nuan-nuan-baby-cry-scratch-douyin-2026-06.md § 视频元信息 + 网络检索）
 
 > [!note] 待补充
 > 目前仅 ingest 了一条视频，对该创作者的了解有限。后续若 ingest 更多她的作品或获得权威背景源，可补充：真实身份/是否为育儿专业人士、内容更新频率、常覆盖主题（是否仅带娃妙招，还是覆盖更多育儿话题）、账号主页公开简介、是否有医学/幼教背景等。

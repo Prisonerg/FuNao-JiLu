@@ -514,8 +514,8 @@ emit ""
 # ============================================================
 emit "【14/16】双区启发式（编译真相区不应有时间线条目格式）"
 emit "----------------------------------------"
-emit "说明：编译真相区（## 时间线 之前，frontmatter 之后）不应出现 '^- YYYY-MM-DD' 列表项格式"
-emit "（这是时间线条目格式，误入编译真相区）。警告，需检查。"
+emit "说明：编译真相区（## 时间线 之前，frontmatter 之后）不应出现 '^- YYYY-MM-DD |' 列表项格式"
+emit "（带 | 分隔符的才是时间线条目格式；## 相关事件 段的 '— ' 分隔符格式属 §4.2 entity 模板标准，不报警）。警告，需检查。"
 emit ""
 for f in "${pages[@]}"; do
   base=$(basename "$f" .md)
@@ -528,7 +528,9 @@ for f in "${pages[@]}"; do
     c>=2{print}
   ' "$f")
   while IFS= read -r line; do
-    if [[ "$line" =~ ^[[:space:]]*-[[:space:]]+[0-9]{4}-[0-9]{2}-[0-9]{2} ]]; then
+    # 只匹配时间线条目格式 '- YYYY-MM-DD [HH:MM] |'（带 | 分隔符），
+    # 排除 ## 相关事件 段的 '- YYYY-MM-DD [HH:MM] — ' 格式（em-dash 分隔符，§4.2 entity 模板标准）
+    if [[ "$line" =~ ^[[:space:]]*-[[:space:]]+[0-9]{4}-[0-9]{2}-[0-9]{2}([[:space:]][0-9]{2}:[0-9]{2})?[[:space:]]*\| ]]; then
       # 截短显示
       short=$(echo "$line" | cut -c1-80)
       emit "${YELLOW}  ⚠ $base: 编译真相区出现时间线条目格式: '$short'${NC}"
@@ -553,13 +555,23 @@ if [[ ! -f "$log_file" ]]; then
   add_issue "15" "warning" "log" "log.md 不存在"
 else
   # 找最后一个 ingest 条目，提取日期与触达文件列表
+  # 兼容两种 log 格式：旧格式 `### YYYY-MM-DD HH:MM - ingest`、新格式 `## [YYYY-MM-DD HH:MM] ingest | ...`
   latest_ingest_date=""
   latest_ingest_files=""
   in_ingest=0
-  ingest_re='^### ([0-9]{4}-[0-9]{2}-[0-9]{2})([[:space:]]+([0-9]{2}:[0-9]{2}))?.*-[[:space:]]*[Ii]ngest'
+  ingest_re_old='^### ([0-9]{4}-[0-9]{2}-[0-9]{2})([[:space:]]+([0-9]{2}:[0-9]{2}))?.*-[[:space:]]*[Ii]ngest'
+  ingest_re_new='^##[[:space:]]\[([0-9]{4}-[0-9]{2}-[0-9]{2})[[:space:]]+[0-9]{2}:[0-9]{2}\][[:space:]]+ingest\b'
   touched_re='^-[[:space:]]*\*\*触达的 wiki 文件\*\*[：:][[:space:]]*(.+)$'
+  # 任意新条目头（用于停止采集触达文件）：旧格式 `### ` 或新格式 `## [`
+  entry_header_re='^(##[[:space:]]\[|### )'
   while IFS= read -r line; do
-    if [[ "$line" =~ $ingest_re ]]; then
+    if [[ "$line" =~ $ingest_re_old ]]; then
+      latest_ingest_date="${BASH_REMATCH[1]}"
+      in_ingest=1
+      latest_ingest_files=""
+      continue
+    fi
+    if [[ "$line" =~ $ingest_re_new ]]; then
       latest_ingest_date="${BASH_REMATCH[1]}"
       in_ingest=1
       latest_ingest_files=""
@@ -568,7 +580,7 @@ else
     if [[ $in_ingest -eq 1 ]]; then
       if [[ "$line" =~ $touched_re ]]; then
         latest_ingest_files="${BASH_REMATCH[1]}"
-      elif [[ "$line" =~ ^###\  ]]; then
+      elif [[ "$line" =~ $entry_header_re ]]; then
         # 进入下一个条目（非 ingest），停止采集
         in_ingest=0
       fi
