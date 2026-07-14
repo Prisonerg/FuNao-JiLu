@@ -7,7 +7,7 @@ sources:
   - raw/karpathy-llm-wiki-gist.md
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-14
+updated: 2026-07-12
 reliability: medium
 ---
 
@@ -72,6 +72,8 @@ LLM Wiki 模式在中文社区引发了显见的传播与二次创作。2026-06-
 ## 时间线
 
 - 2026-07-12 | 首次 ingest 自 raw/karpathy-llm-wiki-gist.md,建立定义、核心思想、应用场景、局限
-  （来源：raw/karpathy-llm-wiki-gist.md）
+  （来源：raw/karpathy-llm-wiki-gist.md § The core idea）
 - 2026-07-12 09:04 | 补充中文社区反响段,sources 增加抖音源,加 second-brain 对比行
-  （来源：raw/suda-llm-wiki-douyin-2026-06.md）
+  （来源：raw/suda-llm-wiki-douyin-2026-06.md § 章节要点-总述）
+- 2026-07-14 | 修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 2026-07-12（2026-07-14 07:33 lint 误刷，本次按 §3 新语义回退）
+  （来源：本页 frontmatter 核定，参见 log.md 2026-07-14 07:33 lint 条目）

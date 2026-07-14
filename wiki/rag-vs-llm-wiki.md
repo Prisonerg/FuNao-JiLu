@@ -39,7 +39,7 @@ gist 对 RAG 的核心批评是「没有累积」：
 | --- | --- | --- |
 | 知识累积方式 | 不累积；每次查询从原始文档重新检索、重新拼装 | 增量累积；每次 ingest 把新信息整合进持久 wiki，知识编译一次、持续保持最新 |
 | 产物形态 | 无持久产物；检索结果即时消费后消失 | 持久、互链、可复利的 Markdown wiki（实体页 / 概念页 / 综述页 + index.md + log.md） |
-| 矛盾处理 | 通常不显式处理；不同文档的矛盾在每次生成的答案中临时体现 | 显式标注；新旧资料冲突用 callout 标记并保留旧结论，待裁定（见 AGENTS.md § 矛盾处理规则） |
+| 矛盾处理 | 通常不显式处理；不同文档的矛盾在每次生成的答案中临时体现 | 显式标注；时间线追加修正条目 + 编译真相区重写为最新结论 + callout 仅临时标注未裁定分歧（见 AGENTS.md §8 双区版矛盾处理） |
 | 维护成本 | 几乎无主动维护，但每次查询的检索 / 综合成本重复支付 | 主动维护成本由 LLM 承担、接近零；人只需 ingest 与提问 |
 | 适用规模 | 天然适合大规模语料（向量检索随文档数扩展） | 中等规模内 index.md 即够用；gist 称约 100 个源、数百个页面内无需向量检索基础设施，更大规模需引入专门搜索引擎（如 qmd 的 BM25 / 向量混合检索）（来源：raw/karpathy-llm-wiki-gist.md § Indexing and logging、§ Optional: CLI tools） |
 
@@ -58,4 +58,6 @@ gist 对 RAG 的核心批评是「没有累积」：
 ## 时间线
 
 - 2026-07-12 | 首次 ingest 自 raw/karpathy-llm-wiki-gist.md,建立 RAG vs LLM Wiki 系统对比
-  （来源：raw/karpathy-llm-wiki-gist.md）
+  （来源：raw/karpathy-llm-wiki-gist.md § The core idea）
+- 2026-07-14 | 修正：对比表「矛盾处理」行原描述旧版 callout 机制，现更新为双区版机制（时间线追加修正条目 + 编译真相重写 + callout 仅临时）
+  （来源：AGENTS.md §8 矛盾处理规则（双区版））

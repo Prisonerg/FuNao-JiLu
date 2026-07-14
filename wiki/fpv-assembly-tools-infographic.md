@@ -6,7 +6,7 @@ tags: [fpv, drone, douyin, assembly, tools, infographic, ocr, 穿越机]
 sources:
   - raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md
 created: 2026-07-12
-updated: 2026-07-14
+updated: 2026-07-12
 reliability: medium
 ---
 
@@ -61,4 +61,6 @@ reliability: medium
 ## 时间线
 
 - 2026-07-12 10:37 | 首次 ingest 自 raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md,经 OCR 识别装机工具清单
-  （来源：raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md）
+  （来源：raw/secret-fpv-pilot-assembly-tools-douyin-2026-07.md § 核心内容）
+- 2026-07-14 | 修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 2026-07-12（2026-07-14 07:33 lint 误刷，本次按 §3 新语义回退）
+  （来源：本页 frontmatter 核定，参见 log.md 2026-07-14 07:33 lint 条目）

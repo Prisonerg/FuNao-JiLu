@@ -42,9 +42,9 @@ reliability: medium
 ## 时间线
 
 - 2026-07-02 | 发布 UHPC 钢纤维修补配比视频（一天43.3兆帕）
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 视频元信息）
 - 2026-07-12 | 本 wiki ingest 该视频
-  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md）
+  （来源：raw/uhpc-steel-fiber-repair-douyin-2026-07.md § 视频元信息）
 - 2026-07-12 18:20 | 补充权威源交叉验证：sources 加 raw/uhpc-authoritative-standards-2026-07.md。视频所述 28 天 100 MPa 经 GB/T 31387-2025 征求意见稿核实达 UC100 起步等级，数据基本可信
   （来源：raw/uhpc-authoritative-standards-2026-07.md § 六）
 
