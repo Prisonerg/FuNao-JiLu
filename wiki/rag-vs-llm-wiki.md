@@ -40,8 +40,23 @@ gist 对 RAG 的核心批评是「没有累积」：
 | 知识累积方式 | 不累积；每次查询从原始文档重新检索、重新拼装 | 增量累积；每次 ingest 把新信息整合进持久 wiki，知识编译一次、持续保持最新 |
 | 产物形态 | 无持久产物；检索结果即时消费后消失 | 持久、互链、可复利的 Markdown wiki（实体页 / 概念页 / 综述页 + index.md + log.md） |
 | 矛盾处理 | 通常不显式处理；不同文档的矛盾在每次生成的答案中临时体现 | 显式标注；时间线追加修正条目 + 编译真相区重写为最新结论 + callout 仅临时标注未裁定分歧（见 AGENTS.md §8 双区版矛盾处理） |
-| 维护成本 | 几乎无主动维护，但每次查询的检索 / 综合成本重复支付 | 主动维护成本由 LLM 承担、接近零；人只需 ingest 与提问 |
+| 维护成本 | 几乎无主动维护，但每次查询的检索 / 综合成本重复支付 | 人类因维护负担放弃 wiki；LLM 不无聊、不忘记更新交叉引用、一次触达 15 个文件，维护成本接近零；人只需 ingest 与提问 |
 | 适用规模 | 天然适合大规模语料（向量检索随文档数扩展） | 中等规模内 index.md 即够用；gist 称约 100 个源、数百个页面内无需向量检索基础设施，更大规模需引入专门搜索引擎（如 qmd 的 BM25 / 向量混合检索）（来源：raw/karpathy-llm-wiki-gist.md § Indexing and logging、§ Optional: CLI tools） |
+
+## 生态位对比
+
+以下 5 列对比表将 RAG 与 LLM Wiki 的范式对比扩展至生态全景，纳入 GBrain、WeKnora、RAGFlow 三个代表性系统，展示知识管理工具在核心理念、Synthesis Layer、图谱分析、OCR、RBAC、Auto-Wiki 等维度的差异。
+
+| 维度 | RAG | LLM Wiki | GBrain | WeKnora | RAGFlow |
+|------|-----|----------|--------|---------|---------|
+| 核心理念 | 实时检索+生成 | 编译一次、持续更新 | 综合答案+图谱 | RAG+Agent+Auto-Wiki | 深度文档理解+RAG |
+| Synthesis Layer | 无——每次从碎片重新拼 | 编译真相区即综合 | 带引用的综合答案+缺口标注 | Agent 驱动自动 wiki 生成 | 无——以检索为主 |
+| Graph Analysis | 无 | wikilink 拓扑 | 图谱遍历+深层连接 | 知识图谱+实体关系 | 无 |
+| OCR Pipeline | 无 | 无 | 无 | 多引擎 OCR（MinerU/Docling/Marker/PaddleOCR） | 深度文档解析 |
+| RBAC | 无 | 无（个人使用） | 团队隔离+fuzz-tested | 无 | 多租户支持 |
+| Auto-Wiki | 无 | 核心能力（LLM 全权维护） | 夜间 cron 自动 enrichment | Agent 驱动自动 wiki 生成 | 无 |
+| 代表实现 | [[ragflow]]、[[weknora]] | 本仓库、[[nashsu-llm-wiki]] | [[gbrain]]（Garry Tan） | [[weknora]]（腾讯） | [[ragflow]]（infiniflow） |
+| 规模 | 取决于实现 | 个人级（~20–100 页） | 企业级（146K 页） | 企业级 | 企业级（7K+ commits） |
 
 ## 开放问题
 
@@ -61,3 +76,7 @@ gist 对 RAG 的核心批评是「没有累积」：
   （来源：raw/karpathy-llm-wiki-gist.md § The core idea）
 - 2026-07-14 | 修正：对比表「矛盾处理」行原描述旧版 callout 机制，现更新为双区版机制（时间线追加修正条目 + 编译真相重写 + callout 仅临时）
   （来源：AGENTS.md §8 矛盾处理规则（双区版））
+- 2026-07-14 | 修正：对照 Karpathy 原文补充「维护成本」行论证细节（LLM 不无聊、不忘记、一次触达 15 文件）
+  （来源：raw/karpathy-llm-wiki-gist.md § Why this works）
+- 2026-07-14 | 修正：新增「生态位对比」5 列表格（RAG/LLM Wiki/GBrain/WeKnora/RAGFlow），展示知识管理工具生态全景
+  （来源：各项目 GitHub README）

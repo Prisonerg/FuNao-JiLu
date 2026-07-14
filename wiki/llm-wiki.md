@@ -7,7 +7,7 @@ sources:
   - raw/karpathy-llm-wiki-gist.md
   - raw/suda-llm-wiki-douyin-2026-06.md
 created: 2026-07-12
-updated: 2026-07-12
+updated: 2026-07-14
 reliability: medium
 ---
 
@@ -32,7 +32,7 @@ LLM Wiki 建立在三层数据结构之上（来源：raw/karpathy-llm-wiki-gist
 
 换言之，RAG 是「每次重新检索、每次重新发现」，没有累积；而 LLM Wiki 是「编译一次、持续保持当前」——交叉引用已就位、矛盾已被标注、综述已反映读过的所有内容，每加入一个新源、提出一个新问题，wiki 都变得更丰富。wiki 是一个**持久的、可复利的产物（a persistent, compounding artifact）**。
 
-人机分工一句话：人负责找资料、探索、提问；LLM 负责摘要、交叉引用、记账（维护 index 与 log）等全部 grunt work。Karpathy 把这种关系比作「Obsidian 是 IDE，LLM 是程序员，wiki 是代码库」（来源：raw/karpathy-llm-wiki-gist.md § The core idea）。这种对比在 [[rag-vs-llm-wiki]] 中有更系统的展开。
+人机分工一句话：人负责找资料、探索、提问；LLM 负责摘要、交叉引用、记账（维护 index 与 log）等全部 grunt work。Karpathy 用一个精确的隐喻概括这种关系：**Obsidian 是 IDE，LLM 是程序员，wiki 是代码库**——人像看代码一样在 Obsidian 中浏览 wiki，LLM 像程序员一样编辑和维护它（来源：raw/karpathy-llm-wiki-gist.md § The core idea）。这种对比在 [[rag-vs-llm-wiki]] 中有更系统的展开。
 
 ## 与相近概念对比
 
@@ -52,11 +52,21 @@ gist 列举了 LLM Wiki 适用的多种「随时间累积知识并希望被组�
 - **商业 / 团队（Business/team）**：由 LLM 维护的内部 wiki，输入来自 Slack 线程、会议纪要、项目文档、客户通话，可加入人工审核环节；wiki 之所以能保持最新，是因为 LLM 承担了团队无人愿做的维护工作。
 - **其它**：竞品分析、尽职调查、旅行规划、课程笔记、爱好深挖——任何「随时间累积知识并希望被组织」的场景。
 
+此外，Karpathy 指出 ingest 不限于逐源交互模式——也可以 **batch-ingest** 一次批量摄入多个源，以较少的人工监督完成（来源：raw/karpathy-llm-wiki-gist.md § Operations）。选择哪种模式取决于用户偏好，并可写入 schema 供后续会话使用。
+
 ## 中文社区反响（2026-06）
 
 LLM Wiki 模式在中文社区引发了显见的传播与二次创作。2026-06-23，抖音作者「苏大讲AI」发布短视频《完犊子了！卡帕西刚引爆的"LLM Wiki"学习潮！》，把该模式包装为「用 Obsidian + Claude 建立第二大脑」的本土化叙事，获得 1.1 万赞、1.0 万收藏的互动热度（来源：raw/suda-llm-wiki-douyin-2026-06.md § 视频元信息、§ 章节要点-总述）。该视频把 LLM Wiki 与 [[second-brain|第二大脑]] 概念直接绑定，构成中文社区对该模式的典型框架化解读，详见 [[suda-llm-wiki-video|视频笔记页]]。
 
 需注意：视频作者把 [[andrej-karpathy|Karpathy]] 称为「OpenAI 创始人」，属口语化简化（Karpathy 实为 OpenAI 联合创始成员之一）；且视频章节要点为抖音 AI 自动生成、非逐字稿，存在两层 AI 中介化（详见 [[suda-llm-wiki-video]] § 作品元信息）。
+
+## 为什么可行
+
+Karpathy 的核心论点：人类放弃 wiki 是因为维护负担的增长快于价值（来源：raw/karpathy-llm-wiki-gist.md § Why this works）。维护知识库最繁琐的不是阅读或思考，而是记账——更新交叉引用、保持摘要最新、标注新旧矛盾、维持数十个页面的一致。LLM 不会感到无聊、不会忘记更新交叉引用、可以一次触及 15 个文件。**wiki 之所以能保持维护，是因为维护成本趋近于零。**
+
+人的工作是策展来源、指导分析、提出好问题、思考这一切意味着什么。LLM 的工作是其余一切。
+
+这一思想在精神上与 Vannevar Bush 1945 年提出的 **Memex** 概念一脉相承（来源：raw/karpathy-llm-wiki-gist.md § Why this works）：一个私人的、主动策展的知识存储，文档之间通过联想轨迹（associative trails）互联。Bush 的愿景比后来的万维网更接近 LLM Wiki——私有的、主动策展的、文档之间的连接与文档本身同等珍贵。Bush 未能解决的部分是「谁来做维护」；LLM 解决了这个问题。
 
 ## 局限
 
@@ -77,3 +87,5 @@ LLM Wiki 模式在中文社区引发了显见的传播与二次创作。2026-06-
   （来源：raw/suda-llm-wiki-douyin-2026-06.md § 章节要点-总述）
 - 2026-07-14 | 修正：updated 字段由误刷的 2026-07-14 回退为真实编辑日 2026-07-12（2026-07-14 07:33 lint 误刷，本次按 §3 新语义回退）
   （来源：本页 frontmatter 核定，参见 log.md 2026-07-14 07:33 lint 条目）
+- 2026-07-14 | 修正：对照 Karpathy 原文补全「为什么可行」段（维护成本趋零 + Memex 1945）、强化「Obsidian 是 IDE」隐喻、提及 batch-ingest 模式
+  （来源：raw/karpathy-llm-wiki-gist.md § Why this works、§ The core idea）

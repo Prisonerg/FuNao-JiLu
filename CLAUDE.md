@@ -20,6 +20,10 @@ Trae / Cursor / Codex 等 AI 编程助手读取 AGENTS.md；Claude Code 读取 C
 - `AGENTS.md` / `CLAUDE.md` —— Schema 规范（即本文件），定义 wiki 维护者如何工作。
 - `scripts/wiki-lint.sh` —— 机器化体检脚本，检查结构完整性与互链健康度。
 
+**设计哲学（Karpathy 原话）：** Obsidian 是 IDE，LLM 是程序员，wiki 是代码库。人在 Obsidian 中浏览、跟进链接、查看图谱视图；LLM 在对话中根据人的指令编辑 wiki 文件。就像程序员写代码一样，LLM 维护 wiki 的结构与一致性。
+
+**Schema 的 co-evolution 哲学：** AGENTS.md / CLAUDE.md 不是一成不变的。它由用户和 LLM 协同演化——边用边改，逐步适配你的领域。Karpathy 原文写道："You and the LLM co-evolve this over time as you figure out what works for your domain." 每次发现新的模式、新的需求、新的边界规则，就更新 Schema，让下一次的 LLM 会话更聪明。Schema 是活的，而非刻在石头上。
+
 **人机分工一句话：** 人负责找资料、提问、产生原创思考；LLM 负责摘要、交叉引用、记账（维护 index 与 log）、重写编译真相、追加证据链。你不替用户决定学什么，但你负责把用户投喂的资料整理成结构化、互链、可追溯、双区分明的知识网络。
 
 ## 2. 目录结构与不可变规则
@@ -380,15 +384,16 @@ updated: 2026-07-12
 
 触发：用户说「ingest raw/xxx.md」、投喂了 URL 链接，或将新原始源放入 `raw/`。
 
-**触发方式有两种：**
+**触发方式有三种：**
 
 - **方式 A：URL 直接 ingest**（推荐）。用户提供 URL（如抖音分享链接、网页文章链接），LLM 自动完成「抓取 → 落盘 raw/ → ingest wiki」全流程，用户无需手动操作 raw/。
   1. 用户提供 URL，LLM 通过 WebFetch 抓取内容。
   2. LLM 将抓取到的内容整理为 raw 格式，落盘到 `raw/xxx.md`。**注意**：raw/ 常规为 LLM 只读不写，但 URL 直接 ingest 是用户明确授权的例外——LLM 可以创建 raw 文件（仅此场景），不可修改或删除已有 raw 文件。
   3. raw 文件落盘后，进入下方「通用 ingest 流程」。
 - **方式 B：raw 文件 ingest**。用户手动将源文件放入 `raw/` 后说「ingest raw/xxx.md」，直接进入下方「通用 ingest 流程」。
+- **方式 C：batch-ingest（批量摄入）**。用户一次性投喂多个源，LLM 按顺序逐个处理，用户可事后抽查而非逐源确认。适合低风险源（如大量同类文章）的批量导入。Karpathy 原文写道："you could also batch-ingest many sources at once with less supervision." 注意：batch-ingest 仍须执行 dry-run 预览，但用户可一次确认全部触达范围后批量执行。
 
-**通用 ingest 流程（两种方式共用）：**
+**通用 ingest 流程（三种方式共用）：**
 
 0. **dry-run 预览（MUST 先执行）**：在改动任何 wiki 文件之前，先告诉用户本次将触达哪些页面，等用户确认后再执行。格式：
 
@@ -406,6 +411,8 @@ updated: 2026-07-12
    ```
 
    用户回复「确认」或「执行」后，才进入以下步骤。如果触达范围超过 15 个页面，应主动建议分批 ingest。
+
+0.5. **分析阶段（Two-Step Chain-of-Thought）**：在生成具体操作之前，LLM 先对源进行分析——理解源的结构层次、识别核心主题、提取关键实体与概念、判断该源与既有 wiki 的关系。借鉴 nashsu/llm_wiki 的「LLM analyzes first, then generates wiki pages」的 Two-Step CoT 设计。分析结果应在 dry-run 预览中简明呈现（如「该源涉及 3 个实体、2 个概念，核心主题为 X」），帮助用户理解 LLM 的判断逻辑。
 
 1. **读全文**：读取 `raw/xxx.md` 全文，理解其主题、论点、涉及的人物/概念/工具。
 2. **判定资料形态**：媒体作品（视频/图文/播客）→ 建 `media` 页；非媒体文字资料（文章/论文/gist）→ 建 `source-note` 页。
@@ -473,6 +480,8 @@ updated: 2026-07-12
 2. **找过时声明**：某页 `updated` 日期过久，且其 `sources` 指向的 `raw/` 文件有更新 → 标记并重新整合。
 3. **找缺失交叉引用**：某实体在正文被提及但没建 `[[链接]]` → 补链。
 4. **检查编译真相与时间线一致性**：编译真相的论断是否都有时间线条目支撑。
+5. **Graph Insights（意外连接与知识缺口）**：借鉴 nashsu/llm_wiki 的 Graph Insights 设计——检测两个表面上不相关的页是否通过中间页（如共同 entity）形成意外路径；检测某概念在 wiki 正文中被频繁提及但无独立页（知识缺口），提示用户是否补建。
+6. **社区检测（MOC 建议）**：基于 Louvain 社区发现概念——识别 wiki 中因 [[wikilink]] 密度自然形成的知识簇（cluster），与 index.md 的「主题 MOC」形成互补。MOC 由人工命名，Louvain 自动发现。发现新的知识簇后，LLM 可建议在 index.md 新建对应 MOC 主题。
 
 **输出体检报告**：机器检查由脚本输出，LLM 检查由 LLM 输出。能直接修复的就修，修复后在 `log.md` 追加一条 `lint` 记录。
 
@@ -669,6 +678,28 @@ ingest 步骤 3「提取实体与概念」后，LLM SHOULD 检查高频实体是
 - 用户不同意时不建页，继续 ingest
 
 避免每个低频提及都建页的噪音，只对高频核心实体主动询问。
+
+### 14.6 Obsidian 工具链
+
+Obsidian 是本 wiki 的默认浏览器和 IDE。以下工具链建议来自 Karpathy 原文 § Tips and tricks 与 Obsidian 官方文档：
+
+**Obsidian Web Clipper**：浏览器扩展，一键将网页文章转换为 Markdown 并存入 raw/。这是快速获取网络来源的最便捷方式。
+
+**本地图片下载**：在 Obsidian 设置 →「文件与链接」中，将「附件文件夹路径」设为固定目录（如 `raw/assets/`）。然后在设置 →「快捷键」中搜索「Download」，为「下载当前文件的附件」绑定快捷键（如 Ctrl+Shift+D）。剪辑网页文章后按快捷键，所有图片自动下载到本地，避免依赖可能失效的远程 URL。
+
+**Obsidian 四项核心价值**（为什么选 Obsidian 而非其他工具）：
+- **Local-first**：数据为本地 Markdown 文件，完全归你所有，不依赖云服务
+- **插件架构**：核心插件 + 社区插件（Dataview、Marp 等），按需扩展
+- **图谱视图**：可视化 wiki 的知识网络，一眼看出枢纽页和孤岛页
+- **Dataview**：基于 frontmatter 的实时查询，替代手维护的列表（见 §10 Dataview 改造）
+
+### 14.7 Persistent Ingest Queue（规模化可选）
+
+借鉴 nashsu/llm_wiki 的 Persistent Ingest Queue 设计：当批量 ingest 大量源时，串行处理 + 崩溃恢复 + 进度可视化可避免部分失败时状态不一致。当前规模（~20 页）无需此机制，但作为规模化后的可选增强记录在此。
+
+### 14.8 Source Folder Auto-Watch（规模化可选）
+
+借鉴 nashsu/llm_wiki 的 Source Folder Auto-Watch 设计：检测 raw/ 目录新增文件并自动触发 ingest dry-run 预览。可通过 Trae Schedule 定时扫描 raw/ 目录的修改时间实现，或未来引入文件系统 watch 机制。
 
 ---
 

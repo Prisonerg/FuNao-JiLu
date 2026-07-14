@@ -17,10 +17,10 @@
 - [[concrete-patch-repair]] (6) — 混凝土修补工艺
 - [[compressive-strength]] (6) — 抗压强度，混凝土核心力学性能
 - [[uhpc-steel-fiber-repair-douyin-2026-07]] (6) — UHPC 钢纤维修补配比视频笔记
-- [[llm-wiki]] (6) — LLM Wiki 核心概念，AI 领域入口
-- [[andrej-karpathy]] (6) — Andrej Karpathy，LLM Wiki 提出者
+- [[llm-wiki]] (11) — LLM Wiki 核心概念，AI 领域入口
+- [[andrej-karpathy]] (7) — Andrej Karpathy，LLM Wiki 提出者
+- [[rag-vs-llm-wiki]] (8) — RAG vs LLM Wiki 系统对比
 - [[zhao-laoshi-jianzhu-keji-yuan]] (5) — 赵老师-建筑科技研究院，抖音建筑材料创作者
-- [[rag-vs-llm-wiki]] (5) — RAG vs LLM Wiki 系统对比
 - [[second-brain]] (5) — 第二大脑，PKM 概念，LLM Wiki 本土化框架
 - [[suda-llm-wiki-video]] (4) — 苏大讲AI LLM Wiki 学习潮视频笔记
 - [[fpv-drone]] (3) — 穿越机概念，FPV 领域入口
@@ -46,7 +46,7 @@ LIMIT 10
 按主题聚合跨 type/domain 的相关页，便于主题浏览。
 
 ### 主题：知识管理 / LLM Wiki
-- [[llm-wiki]]、[[rag-vs-llm-wiki]]、[[second-brain]]、[[andrej-karpathy]]、[[suda-llm-wiki-video]]、[[karpathy-llm-wiki-gist-note]]、[[suda-ai-talk]]
+- [[llm-wiki]]、[[rag-vs-llm-wiki]]、[[second-brain]]、[[andrej-karpathy]]、[[suda-llm-wiki-video]]、[[karpathy-llm-wiki-gist-note]]、[[suda-ai-talk]]、[[nashsu-llm-wiki]]、[[gbrain]]、[[weknora]]、[[ragflow]]、[[knowledge-graph]]、[[community-detection]]
 
 ### 主题：FPV / 穿越机
 - [[fpv-drone]]、[[fpv-assembly-tools]]、[[secret-fpv-pilot]]、[[fpv-assembly-tools-infographic]]

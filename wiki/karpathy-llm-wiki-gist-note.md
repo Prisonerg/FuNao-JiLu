@@ -30,6 +30,9 @@ reliability: high
 - **两个特殊文件**：index.md（内容导向目录，按类别列出每页+一句话摘要，作为查询入口，百级页面规模内无需 embedding RAG）；log.md（时间导向追加式日志，建议条目以一致前缀开头以便 unix 工具解析）（来源：raw/karpathy-llm-wiki-gist.md § Indexing and logging）。
 - **为什么可行**：维护知识库的乏味部分不是阅读和思考，而是记账——更新交叉引用、保持摘要最新、标注矛盾、维护一致性。人类因维护负担增长快于价值而放弃 wiki；LLM 不会无聊、不会忘更新交叉引用、能一次触达 15 个文件。维护成本趋近于零，wiki 才得以持续（来源：raw/karpathy-llm-wiki-gist.md § Why this works）。
 - **思想渊源**：与 Vannevar Bush 1945 年的 Memex 同源——个人化、主动策划、文档间关联即价值。Bush 当年无法解决的「谁来做维护」问题，由 LLM 解决（来源：raw/karpathy-llm-wiki-gist.md § Why this works）。
+- **可选 CLI 工具**：wiki 规模增长后 index 文件不够用时，可引入 qmd——本地 markdown 搜索引擎，支持 BM25/向量混合搜索 + LLM 重排，完全本地运行。有 CLI（LLM 可 shell out）和 MCP server（LLM 原生工具）两种接入方式；也可让 LLM 随手写一个简单搜索脚本（来源：raw/karpathy-llm-wiki-gist.md § Optional: CLI tools）。
+- **实用技巧**：(1) Obsidian Web Clipper 浏览器扩展将网页文章转为 markdown 快速入 raw；(2) 下载本地图片——设置附件目录 + 绑定快捷键，采集后一键下载避免 URL 失效；(3) Obsidian 图谱视图看 wiki 连接结构、枢纽页与孤岛页；(4) Marp 插件从 wiki 内容直接生成幻灯片；(5) Dataview 插件按 frontmatter 生成动态表格与列表；(6) wiki 即 git repo，自带版本历史、分支与协作（来源：raw/karpathy-llm-wiki-gist.md § Tips and tricks）。
+- **文档是抽象的**：本 gist 描述思想而非具体实现。目录结构、schema 约定、页面格式、工具选择都取决于领域和偏好，所有内容可选且模块化——只需分享给 LLM agent 并共同实例化适合你的版本。LLM 能搞定剩下的（来源：raw/karpathy-llm-wiki-gist.md § Note）。
 
 ## 关键引文
 
@@ -45,6 +48,9 @@ reliability: high
 > The tedious part of maintaining a knowledge base is not the reading or the thinking — it's the bookkeeping. … LLMs don't get bored, don't forget to update a cross-reference, and can touch 15 files in one pass.
 > （来源：raw/karpathy-llm-wiki-gist.md § Why this works）
 
+> Humans abandon wikis because the maintenance burden grows faster than the value.
+> （来源：raw/karpathy-llm-wiki-gist.md § Why this works）
+
 ## 延伸问题
 
 - 本 gist 是本 wiki schema（AGENTS.md / CLAUDE.md）的种子源，但本仓库已演化为「GBrain-core 模式」，超出 gist 的抽象描述：新增双区结构（编译真相 + 时间线）、6 种 type（含 original / media）、hobby domain、机器化 lint 脚本等。这些增量哪些是 gist 思想的自然落地、哪些是融合 GBrain 的扩展，值得在 [[llm-wiki]] 概念页持续对照。
@@ -56,3 +62,5 @@ reliability: high
 
 - 2026-07-14 | 首次 ingest 自 raw/karpathy-llm-wiki-gist.md，建立 source-note 笔记：来源元信息、核心要点（7 条）、关键引文（4 条）、延伸问题（4 条）。本 gist 早在 2026-07-12 首次搭建时即被摄入并生成 [[llm-wiki]]、[[andrej-karpathy]]、[[rag-vs-llm-wiki]] 三页，但当时未为 gist 本身建 source-note 页，本次补建
   （来源：raw/karpathy-llm-wiki-gist.md）
+- 2026-07-14 | 修正：对照 Karpathy 原文补全核心要点（CLI tools / Tips / Note 三节）和关键引文（§ Why this works）
+  （来源：raw/karpathy-llm-wiki-gist.md § Optional: CLI tools、§ Tips and tricks、§ Why this works、§ Note）
