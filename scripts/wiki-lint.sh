@@ -42,6 +42,10 @@ done
 
 echo -e "${BLUE}【1/8】frontmatter 完整性${NC}"
 echo "----------------------------------------"
+echo "说明：检查每个知识页开头的 YAML frontmatter 是否包含所有必填字段，type/domain 取值是否合法。"
+echo "必填字段：title, type, domain, tags, sources, created, updated"
+echo "错误：缺必填字段，或 type/domain 取值不合法。必须修复。"
+echo ""
 for f in "${pages[@]}"; do
   base=$(basename "$f" .md)
   # 提取 frontmatter（第一个 --- 到第二个 --- 之间）
@@ -75,6 +79,9 @@ echo ""
 
 echo -e "${BLUE}【2/8】双区结构（## 时间线）${NC}"
 echo "----------------------------------------"
+echo "说明：每个知识页必须包含 '## 时间线' 二级标题，这是双区结构的分界线。"
+echo "错误：缺少该标题。必须修复。"
+echo ""
 for f in "${pages[@]}"; do
   base=$(basename "$f" .md)
   if ! grep -q "^## 时间线" "$f"; then
@@ -87,6 +94,10 @@ echo ""
 
 echo -e "${BLUE}【3/8】孤岛页（无入链）${NC}"
 echo "----------------------------------------"
+echo "说明：孤岛页指没有任何其他 wiki 页用 [[wikilink]] 指向它的页面。"
+echo "建议：检查它是否和其他知识不相关，或在相关页补一个交叉引用。"
+echo "这是警告，不是错误，可酌情处理。"
+echo ""
 # 收集所有 wikilink 目标
 declare -A inlinks
 for f in "${pages[@]}"; do
@@ -117,6 +128,9 @@ echo ""
 
 echo -e "${BLUE}【4/8】悬空引用（指向不存在的页）${NC}"
 echo "----------------------------------------"
+echo "说明：悬空引用指 [[xxx]] 指向了一个不存在的 wiki 文件。"
+echo "通常是文件名拼错了，或者页面被删除了但引用还在。错误，必须修复。"
+echo ""
 dangling=0
 for f in "${pages[@]}"; do
   base=$(basename "$f" .md)
@@ -138,6 +152,9 @@ echo ""
 
 echo -e "${BLUE}【5/8】sources 与 raw 对齐${NC}"
 echo "----------------------------------------"
+echo "说明：检查 frontmatter 中 sources 字段列出的文件，是否真的存在于 raw/ 目录。"
+echo "每个 wiki 页的 sources 必须指向真实存在的 raw 文件。错误，必须修复。"
+echo ""
 for f in "${pages[@]}"; do
   base=$(basename "$f" .md)
   fm=$(awk '/^---$/{c++; if(c==2) exit; if(c==1) next} c==1' "$f")
@@ -158,6 +175,9 @@ echo ""
 
 echo -e "${BLUE}【6/8】index 与实际页对齐${NC}"
 echo "----------------------------------------"
+echo "说明：检查 index.md 是否列出了所有实际存在的 wiki 页，以及 index 列出的页是否都存在。"
+echo "警告：页面存在但 index 未登记（需要添加）。错误：index 登记了不存在的页面（需要删除）。"
+echo ""
 index_file="$WIKI_DIR/index.md"
 if [[ ! -f "$index_file" ]]; then
   echo -e "${RED}  ✗ index.md 不存在${NC}"
@@ -191,6 +211,9 @@ echo ""
 
 echo -e "${BLUE}【7/8】时间线格式${NC}"
 echo "----------------------------------------"
+echo "说明：检查时间线的每条记录是否都包含来源标注（'来源：'）。"
+echo "规范要求每条时间线必须标注来源，便于追溯。警告，可酌情处理。"
+echo ""
 for f in "${pages[@]}"; do
   base=$(basename "$f" .md)
   # 提取时间线区
@@ -211,6 +234,10 @@ echo -e "${GREEN}  已检查时间线格式${NC}"
 echo ""
 
 echo -e "${BLUE}【8/8】反向链接矩阵${NC}"
+echo "----------------------------------------"
+echo "说明：列出每个页面被哪些其他页面链接，以及入链数量。"
+echo "入链越多说明这个页面越核心，是知识网络的枢纽。"
+echo "页名 (入链数) <- 来源页面列表"
 echo "----------------------------------------"
 echo "页名 <- 被谁指向"
 echo "----------------------------------------"
