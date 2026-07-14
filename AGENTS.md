@@ -437,9 +437,35 @@ updated: 2026-07-12
 
 ## 10. index.md 维护规则
 
-`wiki/index.md` 是 wiki 的主目录，是 Query 操作的入口。它包含两个视图：顶部主题 MOC + 下方 domain × type 分组。
+`wiki/index.md` 是 wiki 的主目录，是 Query 操作的入口。它包含四个区块（按从上到下的顺序）：快速入口 → 最近更新 → 主题 MOC → 标签索引 → domain × type 分组。
 
-### 10.1 顶部主题 MOC（Map of Content）
+### 10.1 快速入口（核心枢纽页）
+
+列出入链数最高的 wiki 页（从 lint 反向链接矩阵中获取数据），按入链数降序排列。这是用户最常出发查找的入口。
+
+```markdown
+## 快速入口（核心枢纽页）
+
+- [[llm-wiki]] (16) — LLM Wiki 核心概念，AI 领域入口
+- [[uhpc]] (15) — UHPC 超高性能混凝土，建筑材料入口
+```
+
+**维护规则**：每次 lint 后，用反向链接矩阵的数据刷新入链数。入链数 < 3 的页面不列入快速入口（避免噪音）。
+
+### 10.2 最近更新（倒序）
+
+按时间倒序列出最近 10 次 ingest/修改涉及的页面，方便用户快速定位「上次 ingest 的东西在哪」。
+
+```markdown
+## 最近更新（倒序）
+
+- **2026-07-12** — [[uhpc]]、[[steel-fiber-concrete]] 补充权威源交叉验证数据
+- **2026-07-12** — [[micrometer]]、[[quanqiu-dou-zhidao]] 新建 ingest
+```
+
+**维护规则**：每次 ingest 后，在列表顶部插入一条新记录（日期 + 页面列表 + 简述）。保持最多 10 条，超出时删除最旧的条目。
+
+### 10.3 主题 MOC（Map of Content）
 
 按主题聚合跨 type/domain 的相关页，便于主题浏览。每个主题用 `###` 三级标题，下列相关页 `[[wikilink]]`。主题随知识增长动态增减。
 
@@ -451,7 +477,22 @@ updated: 2026-07-12
 - [[llm-wiki]]、[[rag-vs-llm-wiki]]、[[second-brain]]、[[andrej-karpathy]]
 ```
 
-### 10.2 domain × type 分组
+### 10.4 标签索引
+
+按 tags 聚合页面，以表格形式列出，帮助用户从关键词直接定位到相关页。只列出跨页面的标签（单页独有标签不列）。
+
+```markdown
+## 标签索引
+
+| 标签 | 页面 |
+|------|------|
+| `#fpv` / `#drone` / `#穿越机` | [[fpv-drone]]、[[fpv-assembly-tools]]、[[secret-fpv-pilot]] |
+| `#knowledge-management` | [[llm-wiki]]、[[rag-vs-llm-wiki]]、[[second-brain]] |
+```
+
+**维护规则**：每次 ingest 后检查新增/更新页的 tags，如有新标签出现或已有标签的页面集合变化，更新对应行。同义标签可合并在一行（如 `#fpv` / `#drone` / `#穿越机`）。
+
+### 10.5 domain × type 分组
 
 按 **domain（`ai` / `personal` / `hobby`）× type（6 种）** 分组列出所有知识页。
 
@@ -459,7 +500,7 @@ updated: 2026-07-12
 - 其下用 `### type`（如 `### Entity`、`### Concept`、`### Summary`、`### Source-note`、`### Original`、`### Media`）。
 - 每条用 `[[filename]]` 链接 + 一句话简介。
 
-- **每次 ingest 后 MUST 同步更新** `index.md`：新增的页登记进去；主题 MOC 视需要增减；若某页被删除（罕见），也要从 index 移除。
+- **每次 ingest 后 MUST 同步更新** `index.md`：新增的页登记到 domain × type 分组；主题 MOC 视需要增减；标签索引同步更新；最近更新追加新条目；快速入口在 lint 后刷新入链数。若某页被删除（罕见），也要从 index 移除。
 - `index.md` 不需要 frontmatter，但应有标题与简短说明。
 
 ## 11. log.md 维护规则
